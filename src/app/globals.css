@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  background: #0c0a09;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.8; transform: translateX(-50%) scale(0.98); }
+}

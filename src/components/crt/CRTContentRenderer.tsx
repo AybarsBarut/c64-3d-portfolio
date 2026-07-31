@@ -5,7 +5,7 @@ import { useTetris, TETROMINOES, COLS, ROWS } from '@/hooks/useTetris';
 
 export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpdate?: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const { powerState, setPowerState, activeSection, crtSelectedIndex } = useSceneStore();
+  const { powerState, setPowerState, activeSection, crtSelectedIndex, floppyInserted } = useSceneStore();
   const cursorRef = useRef(true);
   const tetris = useTetris();
 
@@ -198,7 +198,7 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
       { key: 'F5', label: 'PROJECTS', active: activeSection === 'projects' },
       { key: 'F7', label: 'CERTS', active: activeSection === 'certs' },
       { key: 'F8', label: 'CONTACT', active: activeSection === 'contact' },
-      { key: 'F10', label: 'GAME', active: activeSection === 'game' },
+      ...(floppyInserted ? [{ key: 'F10', label: 'GAME', active: activeSection === 'game' }] : []),
     ];
 
     let kx = startX;
@@ -640,7 +640,7 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
     }
 
     if (onTextureNeedsUpdate) onTextureNeedsUpdate();
-  }, [powerState, activeSection, crtSelectedIndex, tetris, onTextureNeedsUpdate]);
+  }, [powerState, activeSection, crtSelectedIndex, floppyInserted, tetris, onTextureNeedsUpdate]);
 
   return (
     <canvas

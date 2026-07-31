@@ -94,7 +94,7 @@ export const useSceneStore = create<SceneState>((set, get) => ({
     }
     set((s) => ({
       floppyInserted: isInserting,
-      activeSection: isInserting ? 'game' : s.activeSection,
+      activeSection: isInserting ? 'game' : s.activeSection === 'game' ? 'home' : s.activeSection,
     }));
   },
   toggleCassette: () => set((s) => ({ cassetteInserted: !s.cassetteInserted })),

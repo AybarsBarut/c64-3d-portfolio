@@ -3,7 +3,7 @@ import { useSceneStore } from '@/stores/sceneStore';
 import { downloadCVPdf, downloadCVDocx } from '@/utils/cvDownloader';
 
 export function OverlayUI() {
-  const { powerState, activeSection, setSection, secretFound, notebookOpen, toggleNotebook } = useSceneStore();
+  const { powerState, activeSection, setSection, secretFound, notebookOpen, toggleNotebook, floppyInserted } = useSceneStore();
   const isOff = powerState === 'off';
 
   return (
@@ -163,7 +163,7 @@ export function OverlayUI() {
           { key: 'F5', label: 'PROJECTS', section: 'projects' as const },
           { key: 'F7', label: 'CERTS', section: 'certs' as const },
           { key: 'F8', label: 'CONTACT', section: 'contact' as const },
-          { key: 'F10', label: 'GAME 🎮', section: 'game' as const },
+          ...(floppyInserted ? [{ key: 'F10', label: 'GAME 🎮', section: 'game' as const }] : []),
         ].map((item) => {
           const isActive = activeSection === item.section;
           return (

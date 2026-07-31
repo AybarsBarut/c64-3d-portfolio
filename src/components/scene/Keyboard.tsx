@@ -84,17 +84,19 @@ export const C64_KEYS: KeyConfig[] = [
 ];
 
 export function C64Keyboard() {
-  const { setPressedKey, setSection, activeSection, navigateUp, navigateDown, triggerCurrentSelection } = useSceneStore();
+  const { setPressedKey, setSection, activeSection, navigateUp, navigateDown, triggerCurrentSelection, floppyInserted } = useSceneStore();
   const [activeKeys, setActiveKeys] = useState<Record<string, boolean>>({});
 
-  const sections: Section[] = ['home', 'about', 'projects', 'certs', 'contact', 'game'];
+  const sections: Section[] = ['home', 'about', 'projects', 'certs', 'contact', ...(floppyInserted ? ['game' as const] : [])];
 
   const triggerKeyAction = (keyConfig: KeyConfig) => {
     sounds.playKeyPress();
     setPressedKey(keyConfig.code);
 
     if (keyConfig.section) {
-      setSection(keyConfig.section);
+      if (keyConfig.section !== 'game' || floppyInserted) {
+        setSection(keyConfig.section);
+      }
     } else if (keyConfig.action === 'next') {
       const idx = sections.indexOf(activeSection);
       setSection(sections[(idx + 1) % sections.length]);
@@ -155,7 +157,7 @@ export function C64Keyboard() {
         setSection('contact');
         return;
       }
-      if (code === 'F10' || key === 'F10') {
+      if ((code === 'F10' || key === 'F10') && floppyInserted) {
         sounds.playKeyPress();
         setSection('game');
         return;

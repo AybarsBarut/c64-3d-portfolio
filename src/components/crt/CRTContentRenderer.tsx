@@ -158,9 +158,13 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
 
       if (cursorRef.current) {
         ctx.fillStyle = C64_CYAN;
-        const lastLine = lines[lines.length - 1] || '';
-        const cursorX = startX + ctx.measureText('> ' + lastLine).width;
-        ctx.fillRect(cursorX, y - 48, 22, 34);
+        if (lines.length === 0) {
+          ctx.fillRect(startX, y, 24, 32);
+        } else {
+          const lastLine = lines[lines.length - 1];
+          const cursorX = startX + ctx.measureText('> ' + lastLine).width + 6;
+          ctx.fillRect(cursorX, y - 48, 24, 32);
+        }
       }
 
       // Draw retro CRT scanlines

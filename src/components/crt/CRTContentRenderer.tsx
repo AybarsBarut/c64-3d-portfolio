@@ -358,10 +358,10 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
           tech: 'AI Applications | LLMs | Machine Learning',
         },
         {
-          name: '2. CISCO C++ ADVANCED',
-          url: 'credly.com/badges/e3fd7bf4',
+          name: '2. NETWORKING BASICS',
+          url: 'credly.com/badges/ed18adc3',
           issuer: 'Cisco (May 2026)',
-          tech: 'C++17 | OOP | Memory Systems | Templates',
+          tech: 'Computer Networks | Routing | TCP/IP | Switching',
         },
         {
           name: '3. LFS101: INTRODUCTION TO LINUX',
@@ -370,34 +370,34 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
           tech: 'Linux Kernel | Shell Scripting | System Admin',
         },
         {
-          name: '4. MODEL CONTEXT PROTOCOL: ADVANCED',
-          url: 'verify.skilljar.com/ambpyq92zawf',
-          issuer: 'Anthropic (Apr 2026)',
-          tech: 'MCP Architecture | Agent Integration | Tools API',
-        },
-        {
-          name: '5. NETWORKING BASICS',
-          url: 'credly.com/badges/ed18adc3',
-          issuer: 'Cisco (May 2026)',
-          tech: 'Computer Networks | Routing | TCP/IP | Switching',
-        },
-        {
-          name: '6. DATA FUNDAMENTALS',
+          name: '4. IBM DATA FUNDAMENTALS',
           url: 'credly.com/badges/77a3e590',
           issuer: 'IBM (May 2026)',
           tech: 'Relational DBs | Data Architecture | SQL',
         },
         {
-          name: '7. ENDPOINT SECURITY',
+          name: '5. CISCO C++ ADVANCED',
+          url: 'credly.com/badges/e3fd7bf4',
+          issuer: 'Cisco (May 2026)',
+          tech: 'C++17 | OOP | Memory Systems | Templates',
+        },
+        {
+          name: '6. ENDPOINT SECURITY',
           url: 'credly.com/badges/cfc7b96f',
           issuer: 'Cisco (May 2026)',
           tech: 'Cybersecurity | Endpoint Protection | Firewalls',
         },
         {
-          name: '8. INTRODUCTION TO CYBERSECURITY',
+          name: '7. INTRODUCTION TO CYBERSECURITY',
           url: 'credly.com/badges/29885bb6',
           issuer: 'Cisco (Apr 2026)',
           tech: 'Network Security | Threat Analysis | Encryption',
+        },
+        {
+          name: '8. MODEL CONTEXT PROTOCOL: ADVANCED',
+          url: 'verify.skilljar.com/ambpyq92zawf',
+          issuer: 'Anthropic (Apr 2026)',
+          tech: 'MCP Architecture | Agent Integration | Tools API',
         },
       ];
 

@@ -27,11 +27,17 @@ export function DeskLamp() {
         <meshStandardMaterial color="#d4af37" metalness={0.85} roughness={0.25} />
       </mesh>
 
-      {/* Red/Dark Switch Button on Base Plate */}
-      <mesh position={[0, 0.12, 0.18]} onClick={handleToggle}>
-        <cylinderGeometry args={[0.04, 0.04, 0.04, 16]} />
-        <meshStandardMaterial color={lampOn ? '#e63946' : '#222222'} roughness={0.4} />
-      </mesh>
+      {/* Vintage Brass Toggle Switch Base & Lever */}
+      <group position={[0, 0.10, 0.18]} onClick={handleToggle}>
+        <mesh position={[0, 0, 0]}>
+          <cylinderGeometry args={[0.04, 0.04, 0.02, 16]} />
+          <meshStandardMaterial color="#d4af37" metalness={0.9} roughness={0.2} />
+        </mesh>
+        <mesh position={[0, 0.025, 0]} rotation={[lampOn ? 0.35 : -0.35, 0, 0]}>
+          <cylinderGeometry args={[0.012, 0.015, 0.05, 12]} />
+          <meshStandardMaterial color="#fef08a" metalness={0.95} roughness={0.1} />
+        </mesh>
+      </group>
 
       {/* Curved Brass Gooseneck Arm */}
       <group position={[0, 0.10, -0.05]}>
@@ -47,9 +53,9 @@ export function DeskLamp() {
 
       {/* Classic Banker's Lamp Emerald Green Elongated Shade Hood */}
       <group position={[0.35, 1.25, 0.35]} rotation={[0.4, 0.4, -0.1]} onClick={handleToggle}>
-        {/* Horizontal Emerald Green Half-Cylinder Shade Hood */}
+        {/* Horizontal Solid Emerald Green Half-Cylinder Shade Hood */}
         <mesh castShadow rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[0.18, 0.18, 0.54, 32, 1, true, 0, Math.PI]} />
+          <cylinderGeometry args={[0.18, 0.18, 0.54, 32, 1, false, 0, Math.PI]} />
           <meshStandardMaterial
             color="#1b4332"
             roughness={0.25}
@@ -58,16 +64,10 @@ export function DeskLamp() {
           />
         </mesh>
 
-        {/* Left End Cap */}
-        <mesh position={[-0.27, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-          <circleGeometry args={[0.18, 32, 0, Math.PI]} />
-          <meshStandardMaterial color="#1b4332" roughness={0.25} metalness={0.2} side={THREE.DoubleSide} />
-        </mesh>
-
-        {/* Right End Cap */}
-        <mesh position={[0.27, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-          <circleGeometry args={[0.18, 32, 0, Math.PI]} />
-          <meshStandardMaterial color="#1b4332" roughness={0.25} metalness={0.2} side={THREE.DoubleSide} />
+        {/* Brass Swivel Side Mounting Rod */}
+        <mesh rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[0.018, 0.018, 0.60, 16]} />
+          <meshStandardMaterial color="#d4af37" metalness={0.85} roughness={0.2} />
         </mesh>
 
         {/* Brass Swivel Side Knobs */}

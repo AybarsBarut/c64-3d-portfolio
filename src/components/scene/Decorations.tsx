@@ -15,15 +15,48 @@ export function Decorations() {
         </mesh>
       </group>
 
-      {/* Soda Can (Rear Right Desk) */}
+      {/* Retro Aluminum Soda Can (Kutu Kola) [4.6, 0.4, 0.2] */}
       <group position={[4.6, 0.4, 0.2]}>
-        <mesh castShadow receiveShadow>
-          <cylinderGeometry args={[0.22, 0.22, 0.65, 24]} />
-          <meshStandardMaterial color="#cc1111" metalness={0.8} roughness={0.2} />
+        {/* Main Red Can Body */}
+        <mesh castShadow receiveShadow position={[0, 0, 0]}>
+          <cylinderGeometry args={[0.21, 0.21, 0.52, 32]} />
+          <meshStandardMaterial color="#dc2626" metalness={0.65} roughness={0.25} />
         </mesh>
-        <mesh position={[0, 0.33, 0]}>
-          <cylinderGeometry args={[0.2, 0.2, 0.02, 24]} />
-          <meshStandardMaterial color="#dddddd" metalness={0.9} roughness={0.1} />
+
+        {/* Iconic White Retro Wave Brand Stripe */}
+        <mesh position={[0, 0.02, 0]}>
+          <cylinderGeometry args={[0.212, 0.212, 0.16, 32]} />
+          <meshStandardMaterial color="#ffffff" roughness={0.3} />
+        </mesh>
+
+        {/* Top Tapered Aluminum Neck */}
+        <mesh position={[0, 0.28, 0]}>
+          <cylinderGeometry args={[0.18, 0.21, 0.06, 32]} />
+          <meshStandardMaterial color="#cbd5e1" metalness={0.9} roughness={0.15} />
+        </mesh>
+
+        {/* Bottom Tapered Aluminum Base */}
+        <mesh position={[0, -0.28, 0]}>
+          <cylinderGeometry args={[0.21, 0.18, 0.05, 32]} />
+          <meshStandardMaterial color="#cbd5e1" metalness={0.9} roughness={0.15} />
+        </mesh>
+
+        {/* Metallic Top Rim Lip */}
+        <mesh position={[0, 0.31, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[0.18, 0.012, 12, 32]} />
+          <meshStandardMaterial color="#e2e8f0" metalness={0.95} roughness={0.1} />
+        </mesh>
+
+        {/* Indented Top Lid */}
+        <mesh position={[0, 0.305, 0]}>
+          <cylinderGeometry args={[0.17, 0.17, 0.01, 32]} />
+          <meshStandardMaterial color="#94a3b8" metalness={0.9} roughness={0.2} />
+        </mesh>
+
+        {/* Aluminum Pop-Tab Ring (Açma Halkası) */}
+        <mesh position={[0, 0.315, 0.04]} rotation={[0.15, 0, 0]}>
+          <boxGeometry args={[0.04, 0.006, 0.09]} />
+          <meshStandardMaterial color="#cbd5e1" metalness={0.95} roughness={0.1} />
         </mesh>
       </group>
 

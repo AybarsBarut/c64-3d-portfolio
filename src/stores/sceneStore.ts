@@ -105,50 +105,60 @@ export const useSceneStore = create<SceneState>((set, get) => ({
   setCrtSelectedIndex: (idx) => set({ crtSelectedIndex: idx }),
 
   navigateUp: () => {
-    const { notebookOpen, crtSelectedIndex } = get();
+    const { notebookOpen, crtSelectedIndex, activeSection } = get();
     if (notebookOpen) {
       set((s) => ({ notebookScrollY: Math.max(0, s.notebookScrollY - 40) }));
     } else {
-      set({ crtSelectedIndex: Math.max(0, crtSelectedIndex - 1) });
+      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, contact: 4 };
+      const max = counts[activeSection] || 4;
+      set({ crtSelectedIndex: (crtSelectedIndex - 1 + max) % max });
     }
   },
 
   navigateDown: () => {
-    const { notebookOpen, crtSelectedIndex } = get();
+    const { notebookOpen, crtSelectedIndex, activeSection } = get();
     if (notebookOpen) {
       set((s) => ({ notebookScrollY: Math.min(300, s.notebookScrollY + 40) }));
     } else {
-      set({ crtSelectedIndex: crtSelectedIndex + 1 });
+      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, contact: 4 };
+      const max = counts[activeSection] || 4;
+      set({ crtSelectedIndex: (crtSelectedIndex + 1) % max });
     }
   },
 
   triggerCurrentSelection: () => {
-    const { activeSection, crtSelectedIndex, toggleNotebook, setSection } = get();
+    const { activeSection, crtSelectedIndex, toggleNotebook } = get();
     
     if (activeSection === 'home') {
-      const links = [
-        () => setSection('home'),
-        () => setSection('about'),
-        () => setSection('projects'),
-        () => setSection('contact'),
-        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
-        () => window.open('https://linkedin.com/in/fahriaybarsbarut1853', '_blank'),
-      ];
-      if (links[crtSelectedIndex]) links[crtSelectedIndex]();
-    } else if (activeSection === 'about') {
-      const links = [
+      const actions = [
         () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
         () => window.open('https://linkedin.com/in/fahriaybarsbarut1853', '_blank'),
         () => toggleNotebook(),
       ];
-      if (links[crtSelectedIndex]) links[crtSelectedIndex]();
+      if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
+    } else if (activeSection === 'about') {
+      const actions = [
+        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
+        () => window.open('https://linkedin.com/in/fahriaybarsbarut1853', '_blank'),
+        () => toggleNotebook(),
+      ];
+      if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
     } else if (activeSection === 'projects') {
-      window.open('https://github.com/FahriAybarsBarut', '_blank');
+      const actions = [
+        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
+        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
+        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
+        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
+      ];
+      if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
     } else if (activeSection === 'contact') {
-      if (crtSelectedIndex === 0) window.open('https://github.com/FahriAybarsBarut', '_blank');
-      else if (crtSelectedIndex === 1) window.open('https://linkedin.com/in/fahriaybarsbarut1853', '_blank');
-      else if (crtSelectedIndex === 2) downloadCVPdf();
-      else if (crtSelectedIndex === 3) downloadCVDocx();
+      const actions = [
+        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
+        () => window.open('https://linkedin.com/in/fahriaybarsbarut1853', '_blank'),
+        () => downloadCVPdf(),
+        () => downloadCVDocx(),
+      ];
+      if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
     }
   },
 }));

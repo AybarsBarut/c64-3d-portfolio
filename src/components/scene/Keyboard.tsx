@@ -69,17 +69,17 @@ export const C64_KEYS: KeyConfig[] = [
   // Space Bar
   { code: 'Space', label: 'SPACE (NEXT)', x: -0.3, z: 0.55, w: 2.0, action: 'next' },
 
-  // 3D Arrow Keys (Inverted-T Cluster)
-  { code: 'ArrowUp', label: '▲', x: 1.48, z: 0.05, w: 0.2, isArrow: true, action: 'up' },
-  { code: 'ArrowLeft', label: '◄', x: 1.30, z: 0.3, w: 0.17, isArrow: true, action: 'left' },
-  { code: 'ArrowDown', label: '▼', x: 1.48, z: 0.3, w: 0.17, isArrow: true, action: 'down' },
-  { code: 'ArrowRight', label: '►', x: 1.66, z: 0.3, w: 0.17, isArrow: true, action: 'right' },
+  // 3D Arrow Keys (Inverted-T Cluster cleanly spaced)
+  { code: 'ArrowUp', label: '▲', x: 1.55, z: 0.05, w: 0.2, isArrow: true, action: 'up' },
+  { code: 'ArrowLeft', label: '◄', x: 1.33, z: 0.3, w: 0.18, isArrow: true, action: 'left' },
+  { code: 'ArrowDown', label: '▼', x: 1.55, z: 0.3, w: 0.18, isArrow: true, action: 'down' },
+  { code: 'ArrowRight', label: '►', x: 1.77, z: 0.3, w: 0.18, isArrow: true, action: 'right' },
 
-  // Function Keys Side Block (Far Right Side)
-  { code: 'F1', label: 'F1', x: 1.95, z: -0.45, w: 0.32, isFn: true, section: 'home' },
-  { code: 'F3', label: 'F3', x: 1.95, z: -0.2, w: 0.32, isFn: true, section: 'about' },
-  { code: 'F5', label: 'F5', x: 1.95, z: 0.05, w: 0.32, isFn: true, section: 'projects' },
-  { code: 'F7', label: 'F7', x: 1.95, z: 0.3, w: 0.32, isFn: true, section: 'contact' },
+  // Function Keys Side Block (Far Right Edge)
+  { code: 'F1', label: 'F1', x: 2.15, z: -0.45, w: 0.3, isFn: true, section: 'home' },
+  { code: 'F3', label: 'F3', x: 2.15, z: -0.2, w: 0.3, isFn: true, section: 'about' },
+  { code: 'F5', label: 'F5', x: 2.15, z: 0.05, w: 0.3, isFn: true, section: 'projects' },
+  { code: 'F7', label: 'F7', x: 2.15, z: 0.3, w: 0.3, isFn: true, section: 'contact' },
 ];
 
 export function C64Keyboard() {
@@ -142,8 +142,8 @@ export function C64Keyboard() {
       {C64_KEYS.map((k) => {
         const isPressed = !!activeKeys[k.code];
         const width = k.w || 0.22;
-        const keyColor = k.isFn ? '#b39d7b' : k.isArrow ? '#1e3a5f' : '#332c26';
-        const topColor = k.isFn ? '#cbba9d' : k.isArrow ? '#3182ce' : '#473f38';
+        const keyColor = k.isFn ? '#b39d7b' : k.isArrow ? '#2d261e' : '#332c26';
+        const topColor = k.isFn ? '#cbba9d' : k.isArrow ? '#d4af37' : '#473f38';
 
         return (
           <group

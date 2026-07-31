@@ -233,8 +233,9 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
       y += 74;
 
       const links = [
-        { label: '🔗 GITHUB   : github.com/FahriAybarsBarut', idx: 4 },
-        { label: '🔗 LINKEDIN : linkedin.com/in/fahriaybarsbarut1853', idx: 5 },
+        { label: '🔗 GITHUB   : github.com/FahriAybarsBarut', idx: 0 },
+        { label: '🔗 LINKEDIN : linkedin.com/in/fahriaybarsbarut1853', idx: 1 },
+        { label: '📖 OPEN NOTEBOOK CV (VIEW & DOWNLOAD)', idx: 2 },
       ];
 
       links.forEach((link) => {

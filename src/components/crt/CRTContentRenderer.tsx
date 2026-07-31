@@ -306,28 +306,28 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
 
       const projs = [
         {
-          name: '1. ARCHURA ENGINE',
-          repo: 'github.com/AybarsBarut/Archura',
+          name: '1. ARCHURA ENGINE (SDL2/C++)',
+          repo: 'github.com/AybarsBarut/Archura-Game-Engine-SDL',
           stack: 'C++ | OpenGL | SDL2 | ECS Architecture',
           desc: 'Custom C++ game engine with rendering pipelines & ECS',
         },
         {
           name: '2. ANAYASAL RAG AI',
-          repo: 'github.com/AybarsBarut/Anayasal-RAG-AI',
+          repo: 'github.com/AybarsBarut/AnayasalRAGai',
           stack: 'Python | LangChain | LLM | Vector Search',
           desc: 'Context-aware RAG AI for the Turkish Constitution',
         },
         {
-          name: '3. UNITY DIAGNOSTICS',
-          repo: 'github.com/AybarsBarut/Unity-Diagnostics',
-          stack: 'Unity | C# | Zero-GC Allocation | Profiler',
-          desc: 'Zero-allocation event system & runtime profiler overlay',
+          name: '3. AIRPRINT RECEIVER',
+          repo: 'github.com/AybarsBarut/Archura-Airprint-Reciever-For-Android',
+          stack: 'Kotlin | Jetpack Compose | mDNS / IPP',
+          desc: 'AirPrint receiver app for Android devices',
         },
         {
-          name: '4. PLASMA LOGIC SIM',
-          repo: 'github.com/AybarsBarut/Plasma-Logic-Sim',
-          stack: 'Python | Monte Carlo | Plasma Physics',
-          desc: 'Educational simulation converting plasma to digital logic',
+          name: '4. C64 3D PORTFOLIO',
+          repo: 'github.com/AybarsBarut/c64-3d-portfolio',
+          stack: 'Three.js | React Three Fiber | Next.js',
+          desc: 'Interactive 3D C64 desk workspace simulation',
         },
       ];
 

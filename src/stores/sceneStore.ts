@@ -145,10 +145,10 @@ export const useSceneStore = create<SceneState>((set, get) => ({
       if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
     } else if (activeSection === 'projects') {
       const actions = [
-        () => window.open('https://github.com/AybarsBarut/Archura', '_blank'),
-        () => window.open('https://github.com/AybarsBarut/Anayasal-RAG-AI', '_blank'),
-        () => window.open('https://github.com/AybarsBarut/Unity-Diagnostics', '_blank'),
-        () => window.open('https://github.com/AybarsBarut/Plasma-Logic-Sim', '_blank'),
+        () => window.open('https://github.com/AybarsBarut/Archura-Game-Engine-SDL', '_blank'),
+        () => window.open('https://github.com/AybarsBarut/AnayasalRAGai', '_blank'),
+        () => window.open('https://github.com/AybarsBarut/Archura-Airprint-Reciever-For-Android', '_blank'),
+        () => window.open('https://github.com/AybarsBarut/c64-3d-portfolio', '_blank'),
       ];
       if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
     } else if (activeSection === 'contact') {

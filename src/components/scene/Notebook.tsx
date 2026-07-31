@@ -92,54 +92,65 @@ export function Notebook() {
       y += 36;
     });
 
-    y += 24;
+    y += 20;
 
-    // Section 2: Technical Skills
+    // Section 2: Education
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 26px "Georgia", serif';
+    ctx.fillText('=== EDUCATION ===', startX, y);
+    y += 38;
+
+    ctx.fillStyle = '#1e1b4b';
+    ctx.font = 'bold 21px "Courier New", monospace';
+    ctx.fillText('Sivas Cumhuriyet Üniversitesi', startX, y);
+    y += 30;
+    ctx.fillStyle = '#334155';
+    ctx.font = '19px "Courier New", monospace';
+    ctx.fillText('B.S. Bilgisayar Mühendisliği (Computer Eng.)', startX, y);
+    y += 36;
+
+    // Section 3: Technical Skills
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 26px "Georgia", serif';
     ctx.fillText('=== SKILLS MATRIX ===', startX, y);
-    y += 40;
+    y += 38;
 
     ctx.fillStyle = '#334155';
-    ctx.font = '20px "Courier New", monospace';
+    ctx.font = '19px "Courier New", monospace';
     const skills = [
-      '• LANGUAGES  : C++, C#, Python, TypeScript',
-      '• GRAPHICS   : OpenGL, SDL2, ECS, UE5, Unity',
+      '• LANGUAGES  : C++, C#, Python, TypeScript, Kotlin',
+      '• GRAPHICS   : OpenGL, SDL2, ECS, UE5, Unity 3D',
       '• VR & SIM   : OpenXR, Zero-GC Diagnostics',
       '• AI & DATA  : LangChain RAG, FastAPI, SQL',
     ];
     skills.forEach((s) => {
       ctx.fillText(s, startX, y);
-      y += 38;
+      y += 34;
     });
 
-    y += 24;
+    y += 18;
 
-    // Section 3: Projects
+    // Section 4: Certifications
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 26px "Georgia", serif';
-    ctx.fillText('=== KEY PROJECTS ===', startX, y);
-    y += 40;
+    ctx.fillText('=== CERTIFICATIONS ===', startX, y);
+    y += 38;
 
-    const projects = [
-      { name: '1. Archura Engine (C++ / OpenGL / ECS)', desc: 'Custom PBR rendering engine' },
-      { name: '2. Anayasal RAG AI (Python / LangChain)', desc: 'Turkish Constitution legal AI' },
-      { name: '3. Unity Zero-GC Diagnostics (C#)', desc: 'Zero allocation profiler & events' },
+    const certs = [
+      '📜 Cisco Certified C++ Advanced (credly.com/org/cisco)',
+      '📜 Cisco Networking & Cyber (netacad.com)',
+      '📜 IBM SQL & Data Engineering (credly.com/org/ibm)',
     ];
-    projects.forEach((p) => {
-      ctx.fillStyle = '#1e1b4b';
-      ctx.font = 'bold 21px "Courier New", monospace';
-      ctx.fillText(p.name, startX, y);
+    certs.forEach((c) => {
+      ctx.fillStyle = '#334155';
+      ctx.font = '18px "Courier New", monospace';
+      ctx.fillText(c, startX, y);
       y += 32;
-      ctx.fillStyle = '#475569';
-      ctx.font = '19px "Courier New", monospace';
-      ctx.fillText(`   ${p.desc}`, startX, y);
-      y += 38;
     });
 
     y += 20;
 
-    // Section 4: Downloads
+    // Section 5: Downloads
     ctx.fillStyle = '#1e1b4b';
     ctx.font = 'bold 26px "Georgia", serif';
     ctx.fillText('=== DOWNLOAD OFFICIAL CV ===', startX, y);

@@ -363,26 +363,29 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
       y += 44;
 
       const contactItems = [
-        { label: '🔗 GITHUB   : github.com/AybarsBarut', idx: 0 },
-        { label: '🔗 LINKEDIN : linkedin.com/in/fahriaybarsbarut1853', idx: 1 },
-        { label: '📄 DOWNLOAD OFFICIAL CV (PDF FORMAT)', idx: 2 },
-        { label: '📝 DOWNLOAD OFFICIAL CV (DOCX FORMAT)', idx: 3 },
+        { label: '🔗 GITHUB      : github.com/AybarsBarut', idx: 0 },
+        { label: '🔗 LINKEDIN    : linkedin.com/in/fahriaybarsbarut1853', idx: 1 },
+        { label: '📜 CISCO C++   : credly.com/org/cisco (Advanced C++)', idx: 2 },
+        { label: '📜 CISCO CYBER : netacad.com (Networking & Security)', idx: 3 },
+        { label: '📜 IBM DATA    : credly.com/org/ibm (SQL & Data Eng)', idx: 4 },
+        { label: '📄 DOWNLOAD OFFICIAL CV (PDF FORMAT)', idx: 5 },
+        { label: '📝 DOWNLOAD OFFICIAL CV (DOCX FORMAT)', idx: 6 },
       ];
 
       contactItems.forEach((item) => {
         const isSel = crtSelectedIndex === item.idx;
         if (isSel) {
           ctx.fillStyle = C64_YELLOW;
-          ctx.fillRect(startX - 8, y - 4, 880, 36);
+          ctx.fillRect(startX - 8, y - 4, 880, 32);
           ctx.fillStyle = '#000000';
-          ctx.font = 'bold 24px "Courier New", monospace';
+          ctx.font = 'bold 22px "Courier New", monospace';
           ctx.fillText(`► ${item.label} [PRESS RETURN]`, startX, y);
         } else {
           ctx.fillStyle = C64_CYAN;
-          ctx.font = 'bold 24px "Courier New", monospace';
+          ctx.font = 'bold 22px "Courier New", monospace';
           ctx.fillText(`  ${item.label}`, startX, y);
         }
-        y += 42;
+        y += 35;
       });
 
       y += 20;

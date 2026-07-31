@@ -109,7 +109,7 @@ export const useSceneStore = create<SceneState>((set, get) => ({
     if (notebookOpen) {
       set((s) => ({ notebookScrollY: Math.max(0, s.notebookScrollY - 40) }));
     } else {
-      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, contact: 4 };
+      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, contact: 7 };
       const max = counts[activeSection] || 4;
       set({ crtSelectedIndex: (crtSelectedIndex - 1 + max) % max });
     }
@@ -120,7 +120,7 @@ export const useSceneStore = create<SceneState>((set, get) => ({
     if (notebookOpen) {
       set((s) => ({ notebookScrollY: Math.min(300, s.notebookScrollY + 40) }));
     } else {
-      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, contact: 4 };
+      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, contact: 7 };
       const max = counts[activeSection] || 4;
       set({ crtSelectedIndex: (crtSelectedIndex + 1) % max });
     }
@@ -155,6 +155,9 @@ export const useSceneStore = create<SceneState>((set, get) => ({
       const actions = [
         () => window.open('https://github.com/AybarsBarut', '_blank'),
         () => window.open('https://linkedin.com/in/fahriaybarsbarut1853', '_blank'),
+        () => window.open('https://www.credly.com/org/cisco', '_blank'),
+        () => window.open('https://www.netacad.com', '_blank'),
+        () => window.open('https://www.credly.com/org/ibm', '_blank'),
         () => downloadCVPdf(),
         () => downloadCVDocx(),
       ];

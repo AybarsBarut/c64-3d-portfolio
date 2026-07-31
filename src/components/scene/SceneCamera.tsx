@@ -79,14 +79,14 @@ export function SceneCamera() {
     setDeskOffset({ x: lerpX, z: lerpZ });
 
     if (notebookOpen) {
-      // Zoomed-in Camera View dedicated to reading the Notebook CV
+      // Direct Top-Down Angled View focused on the Notebook CV
       const notebookCamPos = new THREE.Vector3(
         mouseRef.current.x * 0.1,
-        1.85,
-        3.8
+        2.25,
+        3.0
       );
-      camera.position.lerp(notebookCamPos, 0.09);
-      camera.lookAt(0, 0.25, 2.7);
+      camera.position.lerp(notebookCamPos, 0.1);
+      camera.lookAt(0, 0.18, 2.50);
       return;
     }
 

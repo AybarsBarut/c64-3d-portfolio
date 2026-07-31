@@ -79,14 +79,14 @@ export const C64_KEYS: KeyConfig[] = [
   { code: 'F1', label: 'F1', x: 2.25, z: -0.45, w: 0.28, isFn: true, section: 'home' },
   { code: 'F3', label: 'F3', x: 2.25, z: -0.2, w: 0.28, isFn: true, section: 'about' },
   { code: 'F5', label: 'F5', x: 2.25, z: 0.05, w: 0.28, isFn: true, section: 'projects' },
-  { code: 'F7', label: 'F7', x: 2.25, z: 0.3, w: 0.28, isFn: true, section: 'contact' },
+  { code: 'F7', label: 'F7', x: 2.25, z: 0.3, w: 0.28, isFn: true, section: 'certs' },
 ];
 
 export function C64Keyboard() {
   const { setPressedKey, setSection, activeSection, navigateUp, navigateDown, triggerCurrentSelection } = useSceneStore();
   const [activeKeys, setActiveKeys] = useState<Record<string, boolean>>({});
 
-  const sections: Section[] = ['home', 'about', 'projects', 'contact'];
+  const sections: Section[] = ['home', 'about', 'projects', 'certs', 'contact'];
 
   const triggerKeyAction = (keyConfig: KeyConfig) => {
     sounds.playKeyPress();
@@ -123,10 +123,36 @@ export function C64Keyboard() {
       const key = e.key;
 
       if (
-        ['F1', 'F3', 'F5', 'F7', 'Space', 'Backspace', 'Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(code) ||
-        ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', 'Up', 'Down', 'Left', 'Right'].includes(key)
+        ['F1', 'F3', 'F5', 'F7', 'F8', 'Space', 'Backspace', 'Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(code) ||
+        ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', 'Up', 'Down', 'Left', 'Right', 'F1', 'F3', 'F5', 'F7', 'F8'].includes(key)
       ) {
         e.preventDefault();
+      }
+
+      if (code === 'F1' || key === 'F1') {
+        sounds.playKeyPress();
+        setSection('home');
+        return;
+      }
+      if (code === 'F3' || key === 'F3') {
+        sounds.playKeyPress();
+        setSection('about');
+        return;
+      }
+      if (code === 'F5' || key === 'F5') {
+        sounds.playKeyPress();
+        setSection('projects');
+        return;
+      }
+      if (code === 'F7' || key === 'F7') {
+        sounds.playKeyPress();
+        setSection('certs');
+        return;
+      }
+      if (code === 'F8' || key === 'F8') {
+        sounds.playKeyPress();
+        setSection('contact');
+        return;
       }
 
       if (code === 'ArrowDown' || key === 'ArrowDown' || key === 'Down') {

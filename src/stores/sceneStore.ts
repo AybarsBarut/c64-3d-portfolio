@@ -128,13 +128,15 @@ export const useSceneStore = create<SceneState>((set, get) => ({
   setHoveredObject: (name) => set({ hoveredObject: name }),
   setTypedLines: (lines) => set({ typedLines: lines }),
   triggerSecret: () => set({ secretFound: true }),
-  triggerHireModal: () => set({ hireModalOpen: true }),
-  closeHireModal: () => set({ hireModalOpen: false }),
+  triggerHireModal: () => set({ hireModalOpen: true, crtSelectedIndex: 0 }),
+  closeHireModal: () => set({ hireModalOpen: false, crtSelectedIndex: 0 }),
   setCrtSelectedIndex: (idx) => set({ crtSelectedIndex: idx }),
 
   navigateUp: () => {
-    const { notebookOpen, crtSelectedIndex, activeSection } = get();
-    if (notebookOpen) {
+    const { notebookOpen, crtSelectedIndex, activeSection, hireModalOpen } = get();
+    if (hireModalOpen) {
+      set({ crtSelectedIndex: (crtSelectedIndex - 1 + 2) % 2 });
+    } else if (notebookOpen) {
       set((s) => ({ notebookScrollY: Math.max(0, s.notebookScrollY - 40) }));
     } else {
       const counts: Record<string, number> = { home: 3, about: 3, projects: 4, certs: 8, contact: 4, game: 1 };
@@ -144,8 +146,10 @@ export const useSceneStore = create<SceneState>((set, get) => ({
   },
 
   navigateDown: () => {
-    const { notebookOpen, crtSelectedIndex, activeSection } = get();
-    if (notebookOpen) {
+    const { notebookOpen, crtSelectedIndex, activeSection, hireModalOpen } = get();
+    if (hireModalOpen) {
+      set({ crtSelectedIndex: (crtSelectedIndex + 1) % 2 });
+    } else if (notebookOpen) {
       set((s) => ({ notebookScrollY: Math.min(300, s.notebookScrollY + 40) }));
     } else {
       const counts: Record<string, number> = { home: 3, about: 3, projects: 4, certs: 8, contact: 4, game: 1 };
@@ -155,8 +159,20 @@ export const useSceneStore = create<SceneState>((set, get) => ({
   },
 
   triggerCurrentSelection: () => {
-    const { activeSection, crtSelectedIndex, toggleNotebook } = get();
+    const { activeSection, crtSelectedIndex, toggleNotebook, hireModalOpen, closeHireModal } = get();
     
+    if (hireModalOpen) {
+      if (crtSelectedIndex === 0) {
+        window.open(
+          'mailto:barutaybarsfahri@gmail.com?subject=İş%20Teklifi%20-%20C64%20Portfolio&body=Merhaba%20Aybars,',
+          '_blank'
+        );
+      } else {
+        closeHireModal();
+      }
+      return;
+    }
+
     if (activeSection === 'home') {
       const actions = [
         () => window.open('https://github.com/AybarsBarut', '_blank'),

@@ -5,7 +5,7 @@ import { useTetris, TETROMINOES, COLS, ROWS } from '@/hooks/useTetris';
 
 export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpdate?: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const { powerState, setPowerState, activeSection, crtSelectedIndex, floppyInserted } = useSceneStore();
+  const { powerState, setPowerState, activeSection, crtSelectedIndex, floppyInserted, hireModalOpen } = useSceneStore();
   const cursorRef = useRef(true);
   const tetris = useTetris();
 
@@ -168,6 +168,75 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
           ctx.fillRect(cursorX, y - 48, 24, 32);
         }
       }
+
+      // Draw retro CRT scanlines
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
+      for (let sy = borderY; sy < borderY + innerH; sy += 4) {
+        ctx.fillRect(borderX, sy, innerW, 2);
+      }
+
+      if (onTextureNeedsUpdate) onTextureNeedsUpdate();
+      return;
+    }
+
+    // 1853 SECRET RECRUITMENT OFFER MODAL INSIDE CRT SCREEN
+    if (hireModalOpen) {
+      const dialogW = 840;
+      const dialogH = 460;
+      const dialogX = (W - dialogW) / 2;
+      const dialogY = (H - dialogH) / 2;
+
+      // Dark Blue Dialog Box Background with Yellow Border
+      ctx.fillStyle = '#1b1277';
+      ctx.fillRect(dialogX, dialogY, dialogW, dialogH);
+      ctx.strokeStyle = C64_YELLOW;
+      ctx.lineWidth = 6;
+      ctx.strokeRect(dialogX, dialogY, dialogW, dialogH);
+
+      // Inner Header Banner
+      ctx.fillStyle = C64_YELLOW;
+      ctx.font = 'bold 26px "Courier New", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('*** COMMODORE 64 SECRET CODE 1853 UNLOCKED ***', W / 2, dialogY + 45);
+
+      // Main Question
+      ctx.fillStyle = C64_WHITE;
+      ctx.font = 'bold 34px "Courier New", monospace';
+      ctx.fillText('BENİ İŞE ALMAK İSTER MİSİN? 🚀💼', W / 2, dialogY + 135);
+
+      // Options
+      const isYesSel = crtSelectedIndex === 0;
+      const isNoSel = crtSelectedIndex === 1;
+
+      // Option 1: EVET! (Mail At)
+      const yesY = dialogY + 230;
+      ctx.font = 'bold 26px "Courier New", monospace';
+      if (isYesSel) {
+        ctx.fillStyle = C64_GREEN;
+        ctx.fillRect(dialogX + 50, yesY - 10, dialogW - 100, 52);
+        ctx.fillStyle = '#000000';
+        ctx.fillText('> [EVET! - MAIL AT: barutaybarsfahri@gmail.com] <', W / 2, yesY + 6);
+      } else {
+        ctx.fillStyle = C64_CYAN;
+        ctx.fillText('[EVET! - MAIL AT: barutaybarsfahri@gmail.com]', W / 2, yesY + 6);
+      }
+
+      // Option 2: ANA MENÜYE GERİ DÖN
+      const noY = dialogY + 315;
+      if (isNoSel) {
+        ctx.fillStyle = C64_WHITE;
+        ctx.fillRect(dialogX + 50, noY - 10, dialogW - 100, 52);
+        ctx.fillStyle = '#000000';
+        ctx.fillText('> [ANA MENÜYE GERİ DÖN] <', W / 2, noY + 6);
+      } else {
+        ctx.fillStyle = C64_WHITE;
+        ctx.fillText('[ANA MENÜYE GERİ DÖN]', W / 2, noY + 6);
+      }
+
+      // Instruction footer inside CRT
+      ctx.fillStyle = C64_YELLOW;
+      ctx.font = 'bold 20px "Courier New", monospace';
+      ctx.fillText('(Yön Tuşları ▲/▼ ile seçin, RETURN/ENTER ile onaylayın)', W / 2, dialogY + 410);
 
       // Draw retro CRT scanlines
       ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';

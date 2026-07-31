@@ -19,21 +19,27 @@ export function CoffeeMug() {
 
   return (
     <group position={pos} onClick={handleClick}>
-      {/* Ceramic Body */}
+      {/* Outer Ceramic Body */}
       <mesh castShadow receiveShadow position={[0, 0, 0]}>
-        <cylinderGeometry args={[0.3, 0.26, 0.54, 32]} />
+        <cylinderGeometry args={[0.28, 0.24, 0.54, 32]} />
         <meshStandardMaterial color="#f5f0eb" roughness={0.3} />
       </mesh>
 
-      {/* Coffee Surface */}
-      <mesh position={[0, 0.23, 0]}>
-        <cylinderGeometry args={[0.26, 0.26, 0.04, 32]} />
-        <meshStandardMaterial color="#3a1e05" roughness={0.2} />
+      {/* Inner Recessed Top Rim (Hollow Cavity) */}
+      <mesh position={[0, 0.24, 0]}>
+        <cylinderGeometry args={[0.24, 0.24, 0.06, 32]} />
+        <meshStandardMaterial color="#2a221b" roughness={0.5} />
       </mesh>
 
-      {/* Handle (Pointing Right) */}
-      <mesh position={[0.34, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <torusGeometry args={[0.18, 0.05, 16, 32, Math.PI]} />
+      {/* Liquid Coffee Surface (Recessed below rim) */}
+      <mesh position={[0, 0.20, 0]}>
+        <cylinderGeometry args={[0.235, 0.235, 0.02, 32]} />
+        <meshStandardMaterial color="#3a1e05" roughness={0.15} metalness={0.05} />
+      </mesh>
+
+      {/* Smooth C-Shaped Ceramic Handle (Pointing Right +X) */}
+      <mesh position={[0.28, 0, 0]} rotation={[0, 0, 0]}>
+        <torusGeometry args={[0.15, 0.04, 16, 32]} />
         <meshStandardMaterial color="#f5f0eb" roughness={0.3} />
       </mesh>
 

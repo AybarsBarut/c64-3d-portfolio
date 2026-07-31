@@ -1,4 +1,5 @@
 import React from 'react';
+import * as THREE from 'three';
 import { useSceneStore } from '@/stores/sceneStore';
 import { sounds } from '@/utils/audio';
 
@@ -124,15 +125,17 @@ export function CassetteTape() {
 
       {/* Clear Smoked Door Lid (Hinged at rear edge of well z = -0.26) */}
       <group position={[0, 0.155, -0.26]} rotation={[cassetteInserted ? -0.55 : 0, 0, 0]}>
-        {/* Clear Transparent Smoked Window (Center cavity without overlapping bezel faces) */}
-        <mesh position={[0, 0.006, 0.41]}>
-          <boxGeometry args={[1.02, 0.006, 0.68]} />
+        {/* Clear Transparent Smoked Window (2D plane with depthWrite={false} & renderOrder to prevent Z-fighting) */}
+        <mesh position={[0, 0.007, 0.41]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={1}>
+          <planeGeometry args={[1.01, 0.67]} />
           <meshStandardMaterial
             color="#38bdf8"
             transparent
             opacity={0.30}
             roughness={0.1}
             metalness={0.1}
+            depthWrite={false}
+            side={THREE.DoubleSide}
           />
         </mesh>
 

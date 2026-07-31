@@ -57,7 +57,7 @@ export function Decorations() {
         {/* Box Lid */}
         <mesh position={[0, 0.24, -0.6]} rotation={[0.3, 0, 0]}>
           <boxGeometry args={[1.24, 0.05, 1.44]} />
-          <meshStandardMaterial color="#4a5568" transparent opacity={0.7} roughness={0.2} />
+          <meshStandardMaterial color="#4a5568" transparent opacity={0.7} roughness={0.2} depthWrite={false} />
         </mesh>
       </group>
     </group>

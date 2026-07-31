@@ -147,8 +147,8 @@ export const useSceneStore = create<SceneState>((set, get) => ({
       const actions = [
         () => window.open('https://github.com/AybarsBarut/Archura-Game-Engine-SDL', '_blank'),
         () => window.open('https://github.com/AybarsBarut/AnayasalRAGai', '_blank'),
+        () => window.open('https://github.com/AybarsBarut/Archura-SyncGuard', '_blank'),
         () => window.open('https://github.com/AybarsBarut/Archura-Airprint-Reciever-For-Android', '_blank'),
-        () => window.open('https://github.com/AybarsBarut/c64-3d-portfolio', '_blank'),
       ];
       if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
     } else if (activeSection === 'contact') {

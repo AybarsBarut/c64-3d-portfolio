@@ -32,16 +32,16 @@ export const CV_DATA = {
       link: "https://github.com/AybarsBarut/AnayasalRAGai",
     },
     {
+      title: "Archura SyncGuard",
+      tech: "PowerShell | GitHub API | Windows Automation",
+      desc: "Reusable PowerShell GitHub version controller and Windows auto updater with SemVer checks and zip sync.",
+      link: "https://github.com/AybarsBarut/Archura-SyncGuard",
+    },
+    {
       title: "Archura AirPrint Receiver for Android",
       tech: "Kotlin | Jetpack Compose | mDNS / IPP",
       desc: "Local-first AirPrint receiver for Android allowing wireless photo and document printing from iOS & Mac.",
       link: "https://github.com/AybarsBarut/Archura-Airprint-Reciever-For-Android",
-    },
-    {
-      title: "Commodore 64 3D Interactive Portfolio",
-      tech: "Three.js | React Three Fiber | Next.js",
-      desc: "Interactive 3D workspace simulation recreating a vintage Commodore 64 desk environment with CRT screen rendering.",
-      link: "https://github.com/AybarsBarut/c64-3d-portfolio",
     },
   ],
   education: [

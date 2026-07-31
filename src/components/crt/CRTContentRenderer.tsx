@@ -318,16 +318,16 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
           desc: 'Context-aware RAG AI for the Turkish Constitution',
         },
         {
-          name: '3. AIRPRINT RECEIVER',
+          name: '3. ARCHURA SYNCGUARD',
+          repo: 'github.com/AybarsBarut/Archura-SyncGuard',
+          stack: 'PowerShell | GitHub API | Automation',
+          desc: 'GitHub version controller and Windows auto-updater',
+        },
+        {
+          name: '4. AIRPRINT RECEIVER',
           repo: 'github.com/AybarsBarut/Archura-Airprint-Reciever-For-Android',
           stack: 'Kotlin | Jetpack Compose | mDNS / IPP',
           desc: 'AirPrint receiver app for Android devices',
-        },
-        {
-          name: '4. C64 3D PORTFOLIO',
-          repo: 'github.com/AybarsBarut/c64-3d-portfolio',
-          stack: 'Three.js | React Three Fiber | Next.js',
-          desc: 'Interactive 3D C64 desk workspace simulation',
         },
       ];
 

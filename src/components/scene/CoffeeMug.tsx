@@ -1,4 +1,5 @@
 import React from 'react';
+import * as THREE from 'three';
 import { useSceneStore } from '@/stores/sceneStore';
 import { sounds } from '@/utils/audio';
 
@@ -25,15 +26,21 @@ export function CoffeeMug() {
         <meshStandardMaterial color="#f5f0eb" roughness={0.3} />
       </mesh>
 
-      {/* Inner Recessed Top Rim (Hollow Cavity) */}
-      <mesh position={[0, 0.24, 0]}>
-        <cylinderGeometry args={[0.24, 0.24, 0.06, 32]} />
-        <meshStandardMaterial color="#2a221b" roughness={0.5} />
+      {/* Top Ceramic Wall Rim Ring (Elevated at Y = 0.2701, NO coplanar overlap) */}
+      <mesh position={[0, 0.2701, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[0.23, 0.28, 32]} />
+        <meshStandardMaterial color="#f5f0eb" roughness={0.3} side={THREE.DoubleSide} />
       </mesh>
 
-      {/* Liquid Coffee Surface (Recessed below rim) */}
-      <mesh position={[0, 0.20, 0]}>
-        <cylinderGeometry args={[0.235, 0.235, 0.02, 32]} />
+      {/* Dark Ceramic Interior Wall */}
+      <mesh position={[0, 0.06, 0]}>
+        <cylinderGeometry args={[0.23, 0.23, 0.40, 32]} />
+        <meshStandardMaterial color="#2a221b" roughness={0.6} />
+      </mesh>
+
+      {/* Liquid Coffee Surface (Recessed at Y = 0.18, ZERO Z-fighting) */}
+      <mesh position={[0, 0.18, 0]}>
+        <cylinderGeometry args={[0.228, 0.228, 0.02, 32]} />
         <meshStandardMaterial color="#3a1e05" roughness={0.15} metalness={0.05} />
       </mesh>
 

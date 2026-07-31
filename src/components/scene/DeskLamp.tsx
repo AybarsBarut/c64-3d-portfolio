@@ -45,11 +45,11 @@ export function DeskLamp() {
         </mesh>
       </group>
 
-      {/* Vintage Emerald Green Lamp Shade Dome */}
-      <group position={[0.42, 1.25, 0.42]} rotation={[0.5, 0.3, -0.2]} onClick={handleToggle}>
-        {/* Outer Emerald Green Curved Shade Hood */}
-        <mesh castShadow>
-          <sphereGeometry args={[0.34, 32, 16, 0, Math.PI * 2, 0, Math.PI * 0.58]} />
+      {/* Classic Banker's Lamp Emerald Green Elongated Shade Hood */}
+      <group position={[0.35, 1.25, 0.35]} rotation={[0.4, 0.4, -0.1]} onClick={handleToggle}>
+        {/* Horizontal Emerald Green Half-Cylinder Shade Hood */}
+        <mesh castShadow rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[0.18, 0.18, 0.54, 32, 1, true, 0, Math.PI]} />
           <meshStandardMaterial
             color="#1b4332"
             roughness={0.25}
@@ -58,15 +58,37 @@ export function DeskLamp() {
           />
         </mesh>
 
-        {/* Brass Shade Rim Ring Trim */}
-        <mesh position={[0, -0.16, 0]}>
-          <torusGeometry args={[0.34, 0.015, 12, 32]} />
+        {/* Left End Cap */}
+        <mesh position={[-0.27, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+          <circleGeometry args={[0.18, 32, 0, Math.PI]} />
+          <meshStandardMaterial color="#1b4332" roughness={0.25} metalness={0.2} side={THREE.DoubleSide} />
+        </mesh>
+
+        {/* Right End Cap */}
+        <mesh position={[0.27, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+          <circleGeometry args={[0.18, 32, 0, Math.PI]} />
+          <meshStandardMaterial color="#1b4332" roughness={0.25} metalness={0.2} side={THREE.DoubleSide} />
+        </mesh>
+
+        {/* Brass Swivel Side Knobs */}
+        <mesh position={[-0.28, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[0.04, 0.04, 0.03, 16]} />
+          <meshStandardMaterial color="#d4af37" metalness={0.85} roughness={0.2} />
+        </mesh>
+        <mesh position={[0.28, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[0.04, 0.04, 0.03, 16]} />
           <meshStandardMaterial color="#d4af37" metalness={0.85} roughness={0.2} />
         </mesh>
 
-        {/* Inner Glowing Bulb */}
-        <mesh position={[0, -0.08, 0]}>
-          <sphereGeometry args={[0.09, 16, 16]} />
+        {/* Inner Warm White Reflective Coating */}
+        <mesh rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[0.175, 0.175, 0.52, 32, 1, true, 0, Math.PI]} />
+          <meshStandardMaterial color="#fffdd0" roughness={0.3} side={THREE.DoubleSide} />
+        </mesh>
+
+        {/* Inner Tubular Glowing Bulb */}
+        <mesh position={[0, -0.05, 0]} rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[0.045, 0.045, 0.36, 16]} />
           <meshBasicMaterial color={lampOn ? '#ffffcc' : '#333322'} />
         </mesh>
       </group>
@@ -74,7 +96,7 @@ export function DeskLamp() {
       {/* Functional Warm Spotlight Beam */}
       {lampOn && (
         <spotLight
-          position={[0.42, 1.15, 0.42]}
+          position={[0.35, 1.15, 0.35]}
           target-position={[1.5, 0, 1.5]}
           color="#ffdfa9"
           intensity={4.5}

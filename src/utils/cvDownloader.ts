@@ -249,87 +249,130 @@ export function downloadCVPdf() {
   }
 }
 
-/**
- * Downloads CV as Word DOCX File format (valid OpenXML / Word Doc)
- */
 export function downloadCVDocx() {
-  const docxContent = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<?mso-application progid="Word.Document"?>
-<w:wordDocument xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml">
-  <w:body>
-    <w:p>
-      <w:r><w:rPr><w:b/><w:sz w:val="36"/><w:color w:val="1E1B4B"/></w:rPr><w:t>${CV_DATA.name}</w:t></w:r>
-    </w:p>
-    <w:p>
-      <w:r><w:rPr><w:b/><w:sz w:val="24"/><w:color w:val="4338CA"/></w:rPr><w:t>${CV_DATA.title}</w:t></w:r>
-    </w:p>
-    <w:p>
-      <w:r><w:rPr><w:italic/><w:color w:val="555555"/></w:rPr><w:t>Location: ${CV_DATA.location} | Email: ${CV_DATA.email} | GitHub: ${CV_DATA.github} | LinkedIn: ${CV_DATA.linkedin}</w:t></w:r>
-    </w:p>
-    <w:p><w:r><w:t></w:t></w:r></w:p>
-    
-    <w:p>
-      <w:r><w:rPr><w:b/><w:sz w:val="26"/><w:color w:val="1E1B4B"/></w:rPr><w:t>PROFESSIONAL SUMMARY</w:t></w:r>
-    </w:p>
-    <w:p>
-      <w:r><w:t>${CV_DATA.summary}</w:t></w:r>
-    </w:p>
-    <w:p><w:r><w:t></w:t></w:r></w:p>
+  const docContent = `<!DOCTYPE html>
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+  <meta charset="utf-8">
+  <title>${CV_DATA.name} - Curriculum Vitae</title>
+  <style>
+    body {
+      font-family: Calibri, Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.35;
+      color: #0f172a;
+    }
+    h1 {
+      font-size: 20pt;
+      color: #1e1b4b;
+      margin: 0 0 2pt 0;
+    }
+    .subtitle {
+      font-size: 12pt;
+      color: #4338ca;
+      font-weight: bold;
+      margin-bottom: 4pt;
+    }
+    .contact {
+      font-size: 9.5pt;
+      color: #475569;
+      margin-bottom: 10pt;
+      border-bottom: 2pt solid #6366f1;
+      padding-bottom: 4pt;
+    }
+    .section-title {
+      font-size: 11pt;
+      font-weight: bold;
+      color: #1e1b4b;
+      text-transform: uppercase;
+      letter-spacing: 0.5pt;
+      margin-top: 12pt;
+      margin-bottom: 4pt;
+      border-bottom: 1pt solid #cbd5e1;
+      padding-bottom: 2pt;
+    }
+    .summary-text {
+      margin-bottom: 6pt;
+      color: #334155;
+    }
+    .edu-item {
+      margin-bottom: 4pt;
+    }
+    ul {
+      margin-top: 2pt;
+      margin-bottom: 6pt;
+      padding-left: 18pt;
+    }
+    li {
+      margin-bottom: 2pt;
+      color: #334155;
+    }
+    .cert-item {
+      margin-bottom: 3pt;
+      color: #1e293b;
+    }
+    .project-item {
+      margin-bottom: 6pt;
+    }
+    .project-title {
+      font-weight: bold;
+      color: #0f172a;
+    }
+    .tech-stack {
+      color: #4f46e5;
+      font-weight: bold;
+    }
+    a {
+      color: #4f46e5;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>${CV_DATA.name}</h1>
+  <div class="subtitle">${CV_DATA.title}</div>
+  <div class="contact">
+    📍 ${CV_DATA.location} | ✉️ ${CV_DATA.email} | 
+    🔗 GitHub: <a href="${CV_DATA.github}">${CV_DATA.github}</a> | 
+    LinkedIn: <a href="${CV_DATA.linkedin}">${CV_DATA.linkedin}</a>
+  </div>
 
-    <w:p>
-      <w:r><w:rPr><w:b/><w:sz w:val="26"/><w:color w:val="1E1B4B"/></w:rPr><w:t>EDUCATION</w:t></w:r>
-    </w:p>
-    ${CV_DATA.education.map(e => `
-    <w:p>
-      <w:r><w:rPr><w:b/></w:rPr><w:t>${e.degree} - ${e.institution}</w:t></w:r>
-    </w:p>
-    <w:p>
-      <w:r><w:rPr><w:italic/></w:rPr><w:t>${e.details}</w:t></w:r>
-    </w:p>
-    `).join('')}
-    <w:p><w:r><w:t></w:t></w:r></w:p>
+  <div class="section-title">Professional Summary</div>
+  <p class="summary-text">${CV_DATA.summary}</p>
 
-    <w:p>
-      <w:r><w:rPr><w:b/><w:sz w:val="26"/><w:color w:val="1E1B4B"/></w:rPr><w:t>TECHNICAL CAPABILITIES &amp; SKILLS</w:t></w:r>
-    </w:p>
-    ${CV_DATA.skills.map(s => `
-    <w:p>
-      <w:r><w:t>• ${s}</w:t></w:r>
-    </w:p>
-    `).join('')}
-    <w:p><w:r><w:t></w:t></w:r></w:p>
+  <div class="section-title">Education</div>
+  ${CV_DATA.education.map(e => `
+    <div class="edu-item">
+      <strong>${e.degree}</strong> — <em>${e.institution}</em><br>
+      <span style="color:#64748b;">${e.details}</span>
+    </div>
+  `).join('')}
 
-    <w:p>
-      <w:r><w:rPr><w:b/><w:sz w:val="26"/><w:color w:val="1E1B4B"/></w:rPr><w:t>CERTIFICATIONS &amp; CREDENTIALS (${CV_DATA.certificates.length})</w:t></w:r>
-    </w:p>
-    ${CV_DATA.certificates.map(c => `
-    <w:p>
-      <w:r><w:rPr><w:b/></w:rPr><w:t>${c.name} (${c.issuer}, ${c.date})</w:t></w:r>
-      <w:r><w:t> - Link: ${c.url}</w:t></w:r>
-    </w:p>
-    `).join('')}
-    <w:p><w:r><w:t></w:t></w:r></w:p>
+  <div class="section-title">Technical Capabilities &amp; Skills</div>
+  <ul>
+    ${CV_DATA.skills.map(s => `<li>${s}</li>`).join('')}
+  </ul>
 
-    <w:p>
-      <w:r><w:rPr><w:b/><w:sz w:val="26"/><w:color w:val="1E1B4B"/></w:rPr><w:t>KEY ENGINEERING PROJECTS</w:t></w:r>
-    </w:p>
-    ${CV_DATA.projects.map(p => `
-    <w:p>
-      <w:r><w:rPr><w:b/></w:rPr><w:t>${p.title}</w:t></w:r>
-      <w:r><w:rPr><w:color w:val="4F46E5"/></w:rPr><w:t> (${p.tech})</w:t></w:r>
-    </w:p>
-    <w:p>
-      <w:r><w:t>${p.desc}</w:t></w:r>
-    </w:p>
-    <w:p>
-      <w:r><w:rPr><w:italic/></w:rPr><w:t>URL: ${p.link}</w:t></w:r>
-    </w:p>
-    `).join('')}
-  </w:body>
-</w:wordDocument>
-  `;
+  <div class="section-title">Certifications &amp; Credentials (${CV_DATA.certificates.length})</div>
+  ${CV_DATA.certificates.map(c => `
+    <div class="cert-item">
+      📜 <strong>${c.name}</strong> (${c.issuer}, ${c.date}) — 
+      <a href="${c.url}">${c.displayUrl}</a>
+    </div>
+  `).join('')}
 
-  const blob = new Blob([docxContent], { type: 'application/msword' });
+  <div class="section-title">Key Engineering Projects</div>
+  ${CV_DATA.projects.map(p => `
+    <div class="project-item">
+      <div class="project-title">${p.title} <span class="tech-stack">(${p.tech})</span></div>
+      <div>${p.desc}</div>
+      <div><a href="${p.link}">${p.link}</a></div>
+    </div>
+  `).join('')}
+</body>
+</html>`;
+
+  const blob = new Blob(['\ufeff' + docContent], { type: 'application/msword;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;

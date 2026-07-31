@@ -69,11 +69,11 @@ export const C64_KEYS: KeyConfig[] = [
   // Space Bar
   { code: 'Space', label: 'SPACE (NEXT)', x: -0.3, z: 0.55, w: 2.0, action: 'next' },
 
-  // 3D Arrow Keys (Inverted-T Cluster cleanly spaced)
-  { code: 'ArrowUp', label: '▲', x: 1.55, z: 0.05, w: 0.2, isArrow: true, action: 'up' },
-  { code: 'ArrowLeft', label: '◄', x: 1.33, z: 0.3, w: 0.18, isArrow: true, action: 'left' },
-  { code: 'ArrowDown', label: '▼', x: 1.55, z: 0.3, w: 0.18, isArrow: true, action: 'down' },
-  { code: 'ArrowRight', label: '►', x: 1.77, z: 0.3, w: 0.18, isArrow: true, action: 'right' },
+  // 3D Arrow Keys (Inverted-T Cluster positioned on lower Shift/Spacebar level)
+  { code: 'ArrowUp', label: '▲', x: 1.55, z: 0.30, w: 0.2, isArrow: true, action: 'up' },
+  { code: 'ArrowLeft', label: '◄', x: 1.33, z: 0.55, w: 0.18, isArrow: true, action: 'left' },
+  { code: 'ArrowDown', label: '▼', x: 1.55, z: 0.55, w: 0.18, isArrow: true, action: 'down' },
+  { code: 'ArrowRight', label: '►', x: 1.77, z: 0.55, w: 0.18, isArrow: true, action: 'right' },
 
   // Function Keys Side Block (Far Right Edge)
   { code: 'F1', label: 'F1', x: 2.15, z: -0.45, w: 0.3, isFn: true, section: 'home' },
@@ -119,12 +119,43 @@ export function C64Keyboard() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (['F1', 'F3', 'F5', 'F7', 'Space', 'Backspace', 'Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(e.code)) {
+      const code = e.code;
+      const key = e.key;
+
+      if (
+        ['F1', 'F3', 'F5', 'F7', 'Space', 'Backspace', 'Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(code) ||
+        ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', 'Up', 'Down', 'Left', 'Right'].includes(key)
+      ) {
         e.preventDefault();
       }
 
+      if (code === 'ArrowDown' || key === 'ArrowDown' || key === 'Down') {
+        sounds.playKeyPress();
+        navigateDown();
+        setPressedKey('ArrowDown');
+        setActiveKeys((prev) => ({ ...prev, ArrowDown: true }));
+        setTimeout(() => setActiveKeys((prev) => ({ ...prev, ArrowDown: false })), 150);
+        return;
+      }
+      if (code === 'ArrowUp' || key === 'ArrowUp' || key === 'Up') {
+        sounds.playKeyPress();
+        navigateUp();
+        setPressedKey('ArrowUp');
+        setActiveKeys((prev) => ({ ...prev, ArrowUp: true }));
+        setTimeout(() => setActiveKeys((prev) => ({ ...prev, ArrowUp: false })), 150);
+        return;
+      }
+      if (code === 'Enter' || key === 'Enter') {
+        sounds.playKeyPress();
+        triggerCurrentSelection();
+        setPressedKey('Enter');
+        setActiveKeys((prev) => ({ ...prev, Enter: true }));
+        setTimeout(() => setActiveKeys((prev) => ({ ...prev, Enter: false })), 150);
+        return;
+      }
+
       const match = C64_KEYS.find(
-        (k) => k.code.toLowerCase() === e.code.toLowerCase() || k.code === e.key
+        (k) => k.code.toLowerCase() === code.toLowerCase() || k.code.toLowerCase() === key.toLowerCase()
       );
 
       if (match) {
@@ -134,7 +165,7 @@ export function C64Keyboard() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeSection]);
+  }, [activeSection, navigateUp, navigateDown, triggerCurrentSelection]);
 
 
   return (

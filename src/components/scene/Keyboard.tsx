@@ -69,17 +69,17 @@ export const C64_KEYS: KeyConfig[] = [
   // Space Bar
   { code: 'Space', label: 'SPACE (NEXT)', x: -0.3, z: 0.55, w: 2.0, action: 'next' },
 
-  // 3D Arrow Keys (Inverted-T Cluster positioned on lower Shift/Spacebar level)
-  { code: 'ArrowUp', label: '▲', x: 1.55, z: 0.30, w: 0.2, isArrow: true, action: 'up' },
-  { code: 'ArrowLeft', label: '◄', x: 1.33, z: 0.55, w: 0.18, isArrow: true, action: 'left' },
-  { code: 'ArrowDown', label: '▼', x: 1.55, z: 0.55, w: 0.18, isArrow: true, action: 'down' },
-  { code: 'ArrowRight', label: '►', x: 1.77, z: 0.55, w: 0.18, isArrow: true, action: 'right' },
+  // 3D Arrow Keys (Inverted-T Cluster positioned in bottom-right corner)
+  { code: 'ArrowUp', label: '▲', x: 1.70, z: 0.38, w: 0.2, isArrow: true, action: 'up' },
+  { code: 'ArrowLeft', label: '◄', x: 1.48, z: 0.62, w: 0.18, isArrow: true, action: 'left' },
+  { code: 'ArrowDown', label: '▼', x: 1.70, z: 0.62, w: 0.18, isArrow: true, action: 'down' },
+  { code: 'ArrowRight', label: '►', x: 1.92, z: 0.62, w: 0.18, isArrow: true, action: 'right' },
 
   // Function Keys Side Block (Far Right Edge)
-  { code: 'F1', label: 'F1', x: 2.15, z: -0.45, w: 0.3, isFn: true, section: 'home' },
-  { code: 'F3', label: 'F3', x: 2.15, z: -0.2, w: 0.3, isFn: true, section: 'about' },
-  { code: 'F5', label: 'F5', x: 2.15, z: 0.05, w: 0.3, isFn: true, section: 'projects' },
-  { code: 'F7', label: 'F7', x: 2.15, z: 0.3, w: 0.3, isFn: true, section: 'contact' },
+  { code: 'F1', label: 'F1', x: 2.25, z: -0.45, w: 0.28, isFn: true, section: 'home' },
+  { code: 'F3', label: 'F3', x: 2.25, z: -0.2, w: 0.28, isFn: true, section: 'about' },
+  { code: 'F5', label: 'F5', x: 2.25, z: 0.05, w: 0.28, isFn: true, section: 'projects' },
+  { code: 'F7', label: 'F7', x: 2.25, z: 0.3, w: 0.28, isFn: true, section: 'contact' },
 ];
 
 export function C64Keyboard() {

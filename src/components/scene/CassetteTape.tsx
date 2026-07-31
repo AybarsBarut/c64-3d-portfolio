@@ -42,7 +42,7 @@ export function CassetteTape() {
       {/* 6 Control Buttons (RECORD, PLAY, REW, FF, STOP, EJECT) */}
       {[-0.45, -0.27, -0.09, 0.09, 0.27, 0.45].map((x, i) => {
         const isRecord = i === 0;
-        const isPressed = (i === 1 && !cassetteInserted) || (i === 5 && cassetteInserted);
+        const isPressed = (i === 1 && cassetteInserted) || (i === 5 && !cassetteInserted);
         return (
           <mesh key={i} position={[x, isPressed ? 0.14 : 0.17, -0.82]} castShadow>
             <boxGeometry args={[0.15, 0.10, 0.28]} />
@@ -67,7 +67,7 @@ export function CassetteTape() {
         <meshStandardMaterial
           color="#ef4444"
           emissive="#ef4444"
-          emissiveIntensity={cassetteInserted ? 0.2 : 0.8}
+          emissiveIntensity={cassetteInserted ? 0.9 : 0.1}
         />
       </mesh>
 
@@ -79,8 +79,8 @@ export function CassetteTape() {
 
       {/* Cassette Tape Model */}
       <group
-        position={[0, cassetteInserted ? 0.19 : 0.11, cassetteInserted ? 0.05 : 0.15]}
-        rotation={[cassetteInserted ? -0.30 : 0, 0, 0]}
+        position={[0, cassetteInserted ? 0.11 : 0.19, cassetteInserted ? 0.15 : 0.05]}
+        rotation={[cassetteInserted ? 0 : -0.30, 0, 0]}
       >
         {/* Cassette Dark Shell */}
         <mesh castShadow position={[0, 0, 0]}>
@@ -124,7 +124,7 @@ export function CassetteTape() {
       </group>
 
       {/* Clear Smoked Door Lid (Hinged at rear edge of well z = -0.26) */}
-      <group position={[0, 0.155, -0.26]} rotation={[cassetteInserted ? -0.55 : 0, 0, 0]}>
+      <group position={[0, 0.155, -0.26]} rotation={[cassetteInserted ? 0 : -0.55, 0, 0]}>
         {/* Clear Transparent Smoked Window (2D plane with depthWrite={false} & renderOrder to prevent Z-fighting) */}
         <mesh position={[0, 0.007, 0.41]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={1}>
           <planeGeometry args={[1.01, 0.67]} />

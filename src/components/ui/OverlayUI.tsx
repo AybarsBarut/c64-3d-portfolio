@@ -3,7 +3,17 @@ import { useSceneStore } from '@/stores/sceneStore';
 import { downloadCVPdf, downloadCVDocx } from '@/utils/cvDownloader';
 
 export function OverlayUI() {
-  const { powerState, activeSection, setSection, secretFound, notebookOpen, toggleNotebook, floppyInserted } = useSceneStore();
+  const {
+    powerState,
+    activeSection,
+    setSection,
+    secretFound,
+    notebookOpen,
+    toggleNotebook,
+    floppyInserted,
+    musicPlaying,
+    toggleMusic,
+  } = useSceneStore();
   const isOff = powerState === 'off';
 
   return (
@@ -17,6 +27,40 @@ export function OverlayUI() {
         userSelect: 'none',
       }}
     >
+      {/* 16-Bit Retro Chiptune Music Play Button (Top Right) */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '20px',
+          right: '24px',
+          pointerEvents: 'auto',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+        }}
+      >
+        <button
+          onClick={toggleMusic}
+          style={{
+            background: musicPlaying ? '#16a34a' : 'rgba(20, 18, 16, 0.85)',
+            color: '#ffffff',
+            border: musicPlaying ? '2px solid #4ade80' : '1px solid rgba(255, 255, 255, 0.25)',
+            padding: '10px 16px',
+            borderRadius: '10px',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            letterSpacing: '0.5px',
+            cursor: 'pointer',
+            boxShadow: musicPlaying ? '0 0 15px rgba(74, 222, 128, 0.5)' : '0 4px 12px rgba(0, 0, 0, 0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            transition: 'all 0.2s ease',
+          }}
+        >
+          {musicPlaying ? '🎵 16-BIT MUSIC: PLAYING ▶' : '📻 16-BIT MUSIC: PAUSED ⏸'}
+        </button>
+      </div>
       {/* Power Off Instruction Banner */}
       {isOff && (
         <div

@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { downloadCVPdf, downloadCVDocx } from '@/utils/cvDownloader';
+import { sounds } from '@/utils/audio';
 
 export type PowerState = 
   | 'off' 
@@ -23,6 +24,7 @@ interface SceneState {
   mugLifted: boolean;
   joystickAngle: { x: number; z: number };
   secretFound: boolean;
+  musicPlaying: boolean;
   
   pressedKey: string | null;
   deskOffset: { x: number; z: number };
@@ -40,6 +42,7 @@ interface SceneState {
   toggleCassette: () => void;
   toggleNotebook: () => void;
   toggleMug: () => void;
+  toggleMusic: () => void;
   setJoystickAngle: (angle: { x: number; z: number }) => void;
   setDeskOffset: (offset: { x: number; z: number }) => void;
   setHoveredObject: (name: string | null) => void;
@@ -63,6 +66,7 @@ export const useSceneStore = create<SceneState>((set, get) => ({
   mugLifted: false,
   joystickAngle: { x: 0, z: 0 },
   secretFound: false,
+  musicPlaying: false,
 
   pressedKey: null,
   deskOffset: { x: 0, z: 0 },
@@ -97,7 +101,22 @@ export const useSceneStore = create<SceneState>((set, get) => ({
       activeSection: isInserting ? 'game' : s.activeSection === 'game' ? 'home' : s.activeSection,
     }));
   },
-  toggleCassette: () => set((s) => ({ cassetteInserted: !s.cassetteInserted })),
+  toggleCassette: () => {
+    const isInserting = !get().cassetteInserted;
+    if (isInserting) {
+      sounds.startMusic();
+    } else {
+      sounds.stopMusic();
+    }
+    set({
+      cassetteInserted: isInserting,
+      musicPlaying: sounds.getIsMusicPlaying(),
+    });
+  },
+  toggleMusic: () => {
+    const playing = sounds.toggleMusic();
+    set({ musicPlaying: playing });
+  },
   toggleNotebook: () => set((s) => ({ notebookOpen: !s.notebookOpen, notebookScrollY: 0 })),
   toggleMug: () => set((s) => ({ mugLifted: !s.mugLifted })),
   setJoystickAngle: (angle) => set({ joystickAngle: angle }),

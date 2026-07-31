@@ -155,6 +155,18 @@ export function C64Keyboard() {
         return;
       }
 
+      if (code === 'Space' || key === ' ' || key === 'Spacebar') {
+        sounds.playKeyPress();
+        const secList: Section[] = ['home', 'about', 'projects', 'certs', 'contact'];
+        const currentIdx = secList.indexOf(useSceneStore.getState().activeSection);
+        const nextSec = secList[(currentIdx + 1) % secList.length];
+        setSection(nextSec);
+        setPressedKey('Space');
+        setActiveKeys((prev) => ({ ...prev, Space: true }));
+        setTimeout(() => setActiveKeys((prev) => ({ ...prev, Space: false })), 150);
+        return;
+      }
+
       if (code === 'ArrowDown' || key === 'ArrowDown' || key === 'Down') {
         sounds.playKeyPress();
         navigateDown();

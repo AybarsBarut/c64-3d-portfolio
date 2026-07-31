@@ -218,64 +218,92 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
     y += 36;
 
     // Active Section Renderer
+    const crtSelectedIndex = useSceneStore.getState().crtSelectedIndex;
+
     if (activeSection === 'home') {
       ctx.fillStyle = C64_WHITE;
       ctx.font = 'bold 36px "Courier New", monospace';
       ctx.fillText('FAHRI AYBARS BARUT', startX, y);
-      y += 50;
+      y += 48;
 
       ctx.fillStyle = C64_CYAN;
-      ctx.font = 'bold 26px "Courier New", monospace';
+      ctx.font = 'bold 24px "Courier New", monospace';
       ctx.fillText('Computer Engineer | Simulation & VR/XR Developer', startX, y);
-      ctx.fillText('Location: Ankara, Turkey', startX, y + 36);
-      y += 84;
+      ctx.fillText('Location: Ankara, Turkey', startX, y + 32);
+      y += 74;
 
-      const desc = [
-        'Focused on real-time systems, simulation engineering,',
-        'and immersive VR/XR application development.',
-        '',
-        'STACK MATRIX:',
-        '* UE5 & Unity (Engine & Simulation Development)',
-        '* C++ / C# (Core High-Performance Languages)',
-        '* OpenXR, FastAPI, Zero-GC Diagnostics, RAG AI',
+      const links = [
+        { label: '🔗 GITHUB   : github.com/FahriAybarsBarut', idx: 4 },
+        { label: '🔗 LINKEDIN : linkedin.com/in/fahriaybarsbarut1853', idx: 5 },
       ];
-      desc.forEach((line) => {
-        ctx.fillText(line, startX, y);
-        y += 40;
+
+      links.forEach((link) => {
+        const isSel = crtSelectedIndex === link.idx;
+        if (isSel) {
+          ctx.fillStyle = C64_YELLOW;
+          ctx.fillRect(startX - 8, y - 4, 880, 36);
+          ctx.fillStyle = '#000000';
+          ctx.font = 'bold 24px "Courier New", monospace';
+          ctx.fillText(`► ${link.label} [PRESS RETURN]`, startX, y);
+        } else {
+          ctx.fillStyle = C64_CYAN;
+          ctx.font = 'bold 24px "Courier New", monospace';
+          ctx.fillText(`  ${link.label}`, startX, y);
+        }
+        y += 42;
       });
 
-      y += 20;
+      y += 24;
       ctx.fillStyle = C64_GREEN;
-      ctx.fillText('>>> SYSTEM READY. PRESS [F3:ABOUT] OR [F5:PROJECTS] >>>', startX, y);
+      ctx.font = 'bold 22px "Courier New", monospace';
+      ctx.fillText('>>> USE ARROW KEYS [▲/▼] TO NAVIGATE LINKS & RETURN TO SELECT >>>', startX, y);
     } else if (activeSection === 'about') {
       ctx.fillStyle = C64_WHITE;
       ctx.font = 'bold 34px "Courier New", monospace';
       ctx.fillText('SYS_INFO: ENGINEERING PROFILE', startX, y);
-      y += 50;
+      y += 44;
 
       ctx.fillStyle = C64_CYAN;
-      ctx.font = 'bold 26px "Courier New", monospace';
+      ctx.font = 'bold 24px "Courier New", monospace';
       const aboutLines = [
         'NAME    : FAHRI AYBARS BARUT',
         'DEGREE  : B.S. COMPUTER ENGINEERING',
         'FOCUS   : SIMULATION, VR/XR, REAL-TIME SYSTEMS',
         'LOC     : ANKARA, TURKEY',
-        '',
-        'TECHNICAL CAPABILITIES:',
-        '[X] C++ ENGINE DEV (SDL2, OPENGL, ECS ARCHITECTURE)',
-        '[X] UNITY ZERO-GC EVENT SYSTEMS & DIAGNOSTICS',
-        '[X] UNREAL ENGINE 5 SIMULATIONS & OPENXR VR',
-        '[X] TURKISH CONSTITUTION RAG AI SYSTEM (LANGCHAIN)',
       ];
       aboutLines.forEach((line) => {
         ctx.fillText(line, startX, y);
+        y += 34;
+      });
+
+      y += 20;
+
+      const aboutLinks = [
+        { label: '🔗 GITHUB   : github.com/FahriAybarsBarut', idx: 0 },
+        { label: '🔗 LINKEDIN : linkedin.com/in/fahriaybarsbarut1853', idx: 1 },
+        { label: '📖 OPEN NOTEBOOK CV (CLOSE-UP VIEW & DOWNLOAD)', idx: 2 },
+      ];
+
+      aboutLinks.forEach((link) => {
+        const isSel = crtSelectedIndex === link.idx;
+        if (isSel) {
+          ctx.fillStyle = C64_YELLOW;
+          ctx.fillRect(startX - 8, y - 4, 880, 36);
+          ctx.fillStyle = '#000000';
+          ctx.font = 'bold 24px "Courier New", monospace';
+          ctx.fillText(`► ${link.label}`, startX, y);
+        } else {
+          ctx.fillStyle = C64_CYAN;
+          ctx.font = 'bold 24px "Courier New", monospace';
+          ctx.fillText(`  ${link.label}`, startX, y);
+        }
         y += 40;
       });
     } else if (activeSection === 'projects') {
       ctx.fillStyle = C64_WHITE;
       ctx.font = 'bold 32px "Courier New", monospace';
       ctx.fillText('DIRECTORY: /PORTFOLIO/PROJECTS', startX, y);
-      y += 44;
+      y += 40;
 
       const projs = [
         {
@@ -300,48 +328,64 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
         },
       ];
 
-      projs.forEach((p) => {
-        // Project Name Line
-        ctx.fillStyle = C64_YELLOW;
-        ctx.font = 'bold 26px "Courier New", monospace';
-        ctx.fillText(p.name, startX, y);
-        y += 32;
-
-        // Tech Stack Sub-Line
-        ctx.fillStyle = C64_CYAN;
-        ctx.font = 'bold 21px "Courier New", monospace';
-        ctx.fillText(`   TECH : ${p.stack}`, startX, y);
+      projs.forEach((p, idx) => {
+        const isSel = crtSelectedIndex % projs.length === idx;
+        if (isSel) {
+          ctx.fillStyle = C64_YELLOW;
+          ctx.fillRect(startX - 8, y - 4, 880, 32);
+          ctx.fillStyle = '#000000';
+          ctx.font = 'bold 24px "Courier New", monospace';
+          ctx.fillText(`► ${p.name} [RETURN TO OPEN REPO]`, startX, y);
+        } else {
+          ctx.fillStyle = C64_YELLOW;
+          ctx.font = 'bold 24px "Courier New", monospace';
+          ctx.fillText(`  ${p.name}`, startX, y);
+        }
         y += 30;
 
-        // Description Line
+        ctx.fillStyle = C64_CYAN;
+        ctx.font = 'bold 20px "Courier New", monospace';
+        ctx.fillText(`   TECH : ${p.stack}`, startX, y);
+        y += 28;
+
         ctx.fillStyle = C64_WHITE;
-        ctx.font = '21px "Courier New", monospace';
+        ctx.font = '20px "Courier New", monospace';
         ctx.fillText(`   INFO : ${p.desc}`, startX, y);
-        y += 46;
+        y += 40;
       });
     } else if (activeSection === 'contact') {
       ctx.fillStyle = C64_WHITE;
       ctx.font = 'bold 34px "Courier New", monospace';
       ctx.fillText('COMMODORE DATALINK (CONTACT & CERTS)', startX, y);
-      y += 48;
+      y += 44;
 
-      ctx.fillStyle = C64_CYAN;
-      ctx.font = 'bold 25px "Courier New", monospace';
-      const contacts = [
-        'GITHUB   : github.com/FahriAybarsBarut',
-        'LINKEDIN : linkedin.com/in/fahriaybarsbarut1853',
-        '',
-        'CERTIFICATIONS & CREDENTIALS:',
-        '* CISCO: NETWORKING BASICS & C++ ADVANCED',
-        '* CISCO: ENDPOINT SECURITY & CYBERSECURITY',
-        '* IBM  : DATA FUNDAMENTALS & SQL PIPELINES',
-        '',
-        'STATUS   : OPEN FOR SIMULATION & VR/XR LAB PROJECTS!',
+      const contactItems = [
+        { label: '🔗 GITHUB   : github.com/FahriAybarsBarut', idx: 0 },
+        { label: '🔗 LINKEDIN : linkedin.com/in/fahriaybarsbarut1853', idx: 1 },
+        { label: '📄 DOWNLOAD OFFICIAL CV (PDF FORMAT)', idx: 2 },
+        { label: '📝 DOWNLOAD OFFICIAL CV (DOCX FORMAT)', idx: 3 },
       ];
-      contacts.forEach((line) => {
-        ctx.fillText(line, startX, y);
+
+      contactItems.forEach((item) => {
+        const isSel = crtSelectedIndex === item.idx;
+        if (isSel) {
+          ctx.fillStyle = C64_YELLOW;
+          ctx.fillRect(startX - 8, y - 4, 880, 36);
+          ctx.fillStyle = '#000000';
+          ctx.font = 'bold 24px "Courier New", monospace';
+          ctx.fillText(`► ${item.label} [PRESS RETURN]`, startX, y);
+        } else {
+          ctx.fillStyle = C64_CYAN;
+          ctx.font = 'bold 24px "Courier New", monospace';
+          ctx.fillText(`  ${item.label}`, startX, y);
+        }
         y += 42;
       });
+
+      y += 20;
+      ctx.fillStyle = C64_GREEN;
+      ctx.font = 'bold 22px "Courier New", monospace';
+      ctx.fillText('STATUS: OPEN FOR SIMULATION & VR/XR LAB PROJECTS!', startX, y);
     }
 
     // Cursor

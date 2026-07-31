@@ -9,8 +9,9 @@ interface KeyConfig {
   z: number;
   w?: number;
   isFn?: boolean;
+  isArrow?: boolean;
   section?: Section;
-  action?: 'next' | 'prev' | 'back' | 'select';
+  action?: 'next' | 'prev' | 'back' | 'select' | 'up' | 'down' | 'left' | 'right';
 }
 
 export const C64_KEYS: KeyConfig[] = [
@@ -63,20 +64,26 @@ export const C64_KEYS: KeyConfig[] = [
   { code: 'KeyB', label: 'B', x: -0.4, z: 0.3 },
   { code: 'KeyN', label: 'N', x: -0.14, z: 0.3 },
   { code: 'KeyM', label: 'M', x: 0.12, z: 0.3 },
-  { code: 'ShiftRight', label: 'SHIFT', x: 1.1, z: 0.3, w: 0.44 },
+  { code: 'ShiftRight', label: 'SHIFT', x: 1.05, z: 0.3, w: 0.38 },
 
   // Space Bar
   { code: 'Space', label: 'SPACE (NEXT)', x: -0.3, z: 0.55, w: 2.0, action: 'next' },
 
-  // Function Keys Side Block (Right Side)
-  { code: 'F1', label: 'F1', x: 1.88, z: -0.45, w: 0.38, isFn: true, section: 'home' },
-  { code: 'F3', label: 'F3', x: 1.88, z: -0.2, w: 0.38, isFn: true, section: 'about' },
-  { code: 'F5', label: 'F5', x: 1.88, z: 0.05, w: 0.38, isFn: true, section: 'projects' },
-  { code: 'F7', label: 'F7', x: 1.88, z: 0.3, w: 0.38, isFn: true, section: 'contact' },
+  // 3D Arrow Keys (Inverted-T Cluster)
+  { code: 'ArrowUp', label: '▲', x: 1.48, z: 0.05, w: 0.2, isArrow: true, action: 'up' },
+  { code: 'ArrowLeft', label: '◄', x: 1.30, z: 0.3, w: 0.17, isArrow: true, action: 'left' },
+  { code: 'ArrowDown', label: '▼', x: 1.48, z: 0.3, w: 0.17, isArrow: true, action: 'down' },
+  { code: 'ArrowRight', label: '►', x: 1.66, z: 0.3, w: 0.17, isArrow: true, action: 'right' },
+
+  // Function Keys Side Block (Far Right Side)
+  { code: 'F1', label: 'F1', x: 1.95, z: -0.45, w: 0.32, isFn: true, section: 'home' },
+  { code: 'F3', label: 'F3', x: 1.95, z: -0.2, w: 0.32, isFn: true, section: 'about' },
+  { code: 'F5', label: 'F5', x: 1.95, z: 0.05, w: 0.32, isFn: true, section: 'projects' },
+  { code: 'F7', label: 'F7', x: 1.95, z: 0.3, w: 0.32, isFn: true, section: 'contact' },
 ];
 
 export function C64Keyboard() {
-  const { setPressedKey, setSection, activeSection } = useSceneStore();
+  const { setPressedKey, setSection, activeSection, navigateUp, navigateDown, triggerCurrentSelection } = useSceneStore();
   const [activeKeys, setActiveKeys] = useState<Record<string, boolean>>({});
 
   const sections: Section[] = ['home', 'about', 'projects', 'contact'];
@@ -95,6 +102,12 @@ export function C64Keyboard() {
       setSection(sections[(idx - 1 + sections.length) % sections.length]);
     } else if (keyConfig.action === 'back') {
       setSection('home');
+    } else if (keyConfig.action === 'up') {
+      navigateUp();
+    } else if (keyConfig.action === 'down') {
+      navigateDown();
+    } else if (keyConfig.action === 'select') {
+      triggerCurrentSelection();
     }
 
     setActiveKeys((prev) => ({ ...prev, [keyConfig.code]: true }));
@@ -106,7 +119,7 @@ export function C64Keyboard() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (['F1', 'F3', 'F5', 'F7', 'Space', 'Backspace', 'Tab'].includes(e.code)) {
+      if (['F1', 'F3', 'F5', 'F7', 'Space', 'Backspace', 'Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(e.code)) {
         e.preventDefault();
       }
 
@@ -123,13 +136,14 @@ export function C64Keyboard() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeSection]);
 
+
   return (
     <group position={[0, 0.18, 0.15]}>
       {C64_KEYS.map((k) => {
         const isPressed = !!activeKeys[k.code];
         const width = k.w || 0.22;
-        const keyColor = k.isFn ? '#b39d7b' : '#332c26';
-        const topColor = k.isFn ? '#cbba9d' : '#473f38';
+        const keyColor = k.isFn ? '#b39d7b' : k.isArrow ? '#1e3a5f' : '#332c26';
+        const topColor = k.isFn ? '#cbba9d' : k.isArrow ? '#3182ce' : '#473f38';
 
         return (
           <group

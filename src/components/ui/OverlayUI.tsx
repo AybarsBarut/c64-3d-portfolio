@@ -1,10 +1,9 @@
-'use client';
-
 import React from 'react';
 import { useSceneStore } from '@/stores/sceneStore';
+import { downloadCVPdf, downloadCVDocx } from '@/utils/cvDownloader';
 
 export function OverlayUI() {
-  const { powerState, activeSection, setSection, secretFound } = useSceneStore();
+  const { powerState, activeSection, setSection, secretFound, notebookOpen, toggleNotebook } = useSceneStore();
   const isOff = powerState === 'off';
 
   return (
@@ -39,6 +38,83 @@ export function OverlayUI() {
           }}
         >
           ⚡ CLICK POWER SWITCH ON COMMODORE OR CRT MONITOR TO BOOT UP
+        </div>
+      )}
+
+      {/* Notebook Close-up CV Action Header Bar */}
+      {notebookOpen && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '14px',
+            background: 'rgba(15, 23, 42, 0.92)',
+            border: '2px solid #6366f1',
+            padding: '12px 24px',
+            borderRadius: '12px',
+            boxShadow: '0 8px 25px rgba(99, 102, 241, 0.4)',
+            pointerEvents: 'auto',
+          }}
+        >
+          <div style={{ color: '#e2e8f0', fontSize: '13px', fontWeight: 'bold' }}>
+            📖 <b>NOTEBOOK CV VIEW</b> (Use ▲/▼ Arrow Keys to Scroll)
+          </div>
+
+          <button
+            onClick={downloadCVPdf}
+            style={{
+              background: '#dc2626',
+              color: '#ffffff',
+              border: 'none',
+              padding: '8px 16px',
+              borderRadius: '6px',
+              fontWeight: 'bold',
+              fontSize: '12px',
+              cursor: 'pointer',
+              boxShadow: '0 2px 8px rgba(220, 38, 38, 0.4)',
+              transition: 'transform 0.1s',
+            }}
+          >
+            📄 DOWNLOAD PDF
+          </button>
+
+          <button
+            onClick={downloadCVDocx}
+            style={{
+              background: '#2563eb',
+              color: '#ffffff',
+              border: 'none',
+              padding: '8px 16px',
+              borderRadius: '6px',
+              fontWeight: 'bold',
+              fontSize: '12px',
+              cursor: 'pointer',
+              boxShadow: '0 2px 8px rgba(37, 99, 235, 0.4)',
+              transition: 'transform 0.1s',
+            }}
+          >
+            📝 DOWNLOAD DOCX
+          </button>
+
+          <button
+            onClick={toggleNotebook}
+            style={{
+              background: 'rgba(255, 255, 255, 0.15)',
+              color: '#cbd5e1',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              padding: '8px 14px',
+              borderRadius: '6px',
+              fontWeight: 'bold',
+              fontSize: '12px',
+              cursor: 'pointer',
+            }}
+          >
+            ✖ ZOOM OUT
+          </button>
         </div>
       )}
 
@@ -111,23 +187,25 @@ export function OverlayUI() {
         })}
       </div>
 
-      {/* Mouse Drag & Wheel Controls Guide (Bottom Left) */}
+      {/* Mouse Drag & Keyboard Controls Guide (Bottom Left) */}
       <div
         style={{
           position: 'absolute',
           bottom: '24px',
           left: '24px',
-          color: 'rgba(255,255,255,0.6)',
+          color: 'rgba(255,255,255,0.7)',
           fontSize: '11px',
           lineHeight: '1.6',
-          background: 'rgba(0,0,0,0.5)',
-          padding: '8px 14px',
+          background: 'rgba(0,0,0,0.65)',
+          padding: '10px 14px',
           borderRadius: '8px',
+          border: '1px solid rgba(255,255,255,0.1)',
         }}
       >
-        <div>🖱️ <b>DRAG MOUSE:</b> Shift desk perspective</div>
-        <div>📜 <b>WHEEL:</b> Translate desk workspace</div>
-        <div>💡 <b>CLICK OBJECTS:</b> Lamp, Mug, Floppy, Cassette</div>
+        <div>⌨️ <b>ARROW KEYS (▲/▼):</b> Navigate links / scroll page</div>
+        <div>⏎ <b>RETURN / ENTER:</b> Open highlighted link or action</div>
+        <div>📖 <b>NOTEBOOK:</b> Click notebook to view & download CV</div>
+        <div>🖱️ <b>DRAG / WHEEL:</b> Shift desk camera perspective</div>
       </div>
     </div>
   );

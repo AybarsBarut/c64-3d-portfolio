@@ -5,7 +5,7 @@ import { useSceneStore } from '@/stores/sceneStore';
 
 export function SceneCamera() {
   const { camera } = useThree();
-  const { deskOffset, setDeskOffset, activeSection } = useSceneStore();
+  const { deskOffset, setDeskOffset, activeSection, notebookOpen } = useSceneStore();
   const mouseRef = useRef({ x: 0, y: 0, isDown: false, startX: 0, startY: 0 });
   const targetOffset = useRef({ x: 0, z: 0 });
   
@@ -77,6 +77,18 @@ export function SceneCamera() {
     const lerpX = THREE.MathUtils.lerp(deskOffset.x, targetOffset.current.x, 0.08);
     const lerpZ = THREE.MathUtils.lerp(deskOffset.z, targetOffset.current.z, 0.08);
     setDeskOffset({ x: lerpX, z: lerpZ });
+
+    if (notebookOpen) {
+      // Zoomed-in Camera View dedicated to reading the Notebook CV
+      const notebookCamPos = new THREE.Vector3(
+        mouseRef.current.x * 0.1,
+        1.85,
+        3.8
+      );
+      camera.position.lerp(notebookCamPos, 0.09);
+      camera.lookAt(0, 0.25, 2.7);
+      return;
+    }
 
     // Dynamic Camera Height & Pitch based on Zoom Distance
     const normalizedZoom = (zoomRef.current - 1.8) / 4.7;

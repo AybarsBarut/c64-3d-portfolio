@@ -307,21 +307,25 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
       const projs = [
         {
           name: '1. ARCHURA ENGINE',
+          repo: 'github.com/AybarsBarut/Archura',
           stack: 'C++ | OpenGL | SDL2 | ECS Architecture',
           desc: 'Custom C++ game engine with rendering pipelines & ECS',
         },
         {
           name: '2. ANAYASAL RAG AI',
+          repo: 'github.com/AybarsBarut/Anayasal-RAG-AI',
           stack: 'Python | LangChain | LLM | Vector Search',
           desc: 'Context-aware RAG AI for the Turkish Constitution',
         },
         {
           name: '3. UNITY DIAGNOSTICS',
+          repo: 'github.com/AybarsBarut/Unity-Diagnostics',
           stack: 'Unity | C# | Zero-GC Allocation | Profiler',
           desc: 'Zero-allocation event system & runtime profiler overlay',
         },
         {
           name: '4. PLASMA LOGIC SIM',
+          repo: 'github.com/AybarsBarut/Plasma-Logic-Sim',
           stack: 'Python | Monte Carlo | Plasma Physics',
           desc: 'Educational simulation converting plasma to digital logic',
         },
@@ -333,8 +337,8 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
           ctx.fillStyle = C64_YELLOW;
           ctx.fillRect(startX - 8, y - 4, 880, 32);
           ctx.fillStyle = '#000000';
-          ctx.font = 'bold 24px "Courier New", monospace';
-          ctx.fillText(`► ${p.name} [RETURN TO OPEN REPO]`, startX, y);
+          ctx.font = 'bold 23px "Courier New", monospace';
+          ctx.fillText(`► ${p.name} [OPEN: ${p.repo}]`, startX, y);
         } else {
           ctx.fillStyle = C64_YELLOW;
           ctx.font = 'bold 24px "Courier New", monospace';

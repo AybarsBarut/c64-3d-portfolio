@@ -103,7 +103,7 @@ export const useSceneStore = create<SceneState>((set, get) => ({
     if (notebookOpen) {
       set((s) => ({ notebookScrollY: Math.max(0, s.notebookScrollY - 40) }));
     } else {
-      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, certs: 4, contact: 4 };
+      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, certs: 8, contact: 4 };
       const max = counts[activeSection] || 4;
       set({ crtSelectedIndex: (crtSelectedIndex - 1 + max) % max });
     }
@@ -114,7 +114,7 @@ export const useSceneStore = create<SceneState>((set, get) => ({
     if (notebookOpen) {
       set((s) => ({ notebookScrollY: Math.min(300, s.notebookScrollY + 40) }));
     } else {
-      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, certs: 4, contact: 4 };
+      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, certs: 8, contact: 4 };
       const max = counts[activeSection] || 4;
       set({ crtSelectedIndex: (crtSelectedIndex + 1) % max });
     }
@@ -147,10 +147,14 @@ export const useSceneStore = create<SceneState>((set, get) => ({
       if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
     } else if (activeSection === 'certs') {
       const actions = [
-        () => window.open('https://www.credly.com/org/cisco', '_blank'),
-        () => window.open('https://www.netacad.com', '_blank'),
-        () => window.open('https://www.credly.com/org/ibm', '_blank'),
-        () => window.open('https://courses.nvidia.com/certificates', '_blank'),
+        () => window.open('https://www.credly.com/badges/0387ce1f-7b17-456f-8447-1ee63e9a4e0d', '_blank'),
+        () => window.open('https://www.credly.com/badges/e3fd7bf4-1a87-4a69-a980-6851f18b52ce', '_blank'),
+        () => window.open('https://ti-user-certificates.s3.amazonaws.com/e0df7fbf-a057-42af-8a1f-590912be5460/2421a6bd-14d8-4a49-bf23-6761173d3824-aybars-barut-c6a11912-7e73-4976-8e27-50d72f2ebb3c-certificate.pdf', '_blank'),
+        () => window.open('https://verify.skilljar.com/c/ambpyq92zawf', '_blank'),
+        () => window.open('https://www.credly.com/badges/ed18adc3-b434-46b4-a316-7799e4024489', '_blank'),
+        () => window.open('https://www.credly.com/badges/77a3e590-eec3-4ced-8496-ab86c62281af', '_blank'),
+        () => window.open('https://www.credly.com/badges/cfc7b96f-0c5a-4373-a715-194571f5d083', '_blank'),
+        () => window.open('https://www.credly.com/badges/29885bb6-4b12-45c2-ae0d-4d4c18ab7180', '_blank'),
       ];
       if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
     } else if (activeSection === 'contact') {

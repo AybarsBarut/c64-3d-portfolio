@@ -352,28 +352,52 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
 
       const certs = [
         {
-          name: '1. CISCO CERTIFIED C++ ADVANCED',
-          url: 'credly.com/org/cisco',
-          tech: 'C++17 | OOP | Memory & Pointers | Templates',
-          desc: 'Advanced C++ Programming Certification by Cisco NetAcad',
+          name: '1. ARTIFICIAL INTELLIGENCE FUNDAMENTALS',
+          url: 'credly.com/badges/0387ce1f',
+          issuer: 'IBM (Jul 2026)',
+          tech: 'AI Applications | LLMs | Machine Learning',
         },
         {
-          name: '2. CISCO NETWORKING & CYBERSECURITY',
-          url: 'netacad.com',
-          tech: 'Computer Networks | Protocols | Firewalls | Security',
-          desc: 'Networking & Cybersecurity Essentials Certification',
+          name: '2. CISCO C++ ADVANCED',
+          url: 'credly.com/badges/e3fd7bf4',
+          issuer: 'Cisco (May 2026)',
+          tech: 'C++17 | OOP | Memory Systems | Templates',
         },
         {
-          name: '3. IBM PROFESSIONAL DATA ENGINEERING',
-          url: 'credly.com/org/ibm',
-          tech: 'Relational DBs | SQL Queries | Data Pipelines',
-          desc: 'Professional Data Engineering & SQL Certification by IBM',
+          name: '3. LFS101: INTRODUCTION TO LINUX',
+          url: 'linuxfoundation.org/lfs101',
+          issuer: 'The Linux Foundation (May 2026)',
+          tech: 'Linux Kernel | Shell Scripting | System Admin',
         },
         {
-          name: '4. NVIDIA DEEP LEARNING ESSENTIALS',
-          url: 'courses.nvidia.com',
-          tech: 'Deep Learning | GPU Acceleration | Neural Networks',
-          desc: 'Fundamentals of Deep Learning Certification by NVIDIA DLI',
+          name: '4. MODEL CONTEXT PROTOCOL: ADVANCED',
+          url: 'verify.skilljar.com/ambpyq92zawf',
+          issuer: 'Anthropic (Apr 2026)',
+          tech: 'MCP Architecture | Agent Integration | Tools API',
+        },
+        {
+          name: '5. NETWORKING BASICS',
+          url: 'credly.com/badges/ed18adc3',
+          issuer: 'Cisco (May 2026)',
+          tech: 'Computer Networks | Routing | TCP/IP | Switching',
+        },
+        {
+          name: '6. DATA FUNDAMENTALS',
+          url: 'credly.com/badges/77a3e590',
+          issuer: 'IBM (May 2026)',
+          tech: 'Relational DBs | Data Architecture | SQL',
+        },
+        {
+          name: '7. ENDPOINT SECURITY',
+          url: 'credly.com/badges/cfc7b96f',
+          issuer: 'Cisco (May 2026)',
+          tech: 'Cybersecurity | Endpoint Protection | Firewalls',
+        },
+        {
+          name: '8. INTRODUCTION TO CYBERSECURITY',
+          url: 'credly.com/badges/29885bb6',
+          issuer: 'Cisco (Apr 2026)',
+          tech: 'Network Security | Threat Analysis | Encryption',
         },
       ];
 
@@ -381,26 +405,21 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
         const isSel = crtSelectedIndex % certs.length === idx;
         if (isSel) {
           ctx.fillStyle = C64_YELLOW;
-          ctx.fillRect(startX - 8, y - 4, 880, 32);
+          ctx.fillRect(startX - 8, y - 4, 880, 26);
           ctx.fillStyle = '#000000';
-          ctx.font = 'bold 23px "Courier New", monospace';
-          ctx.fillText(`► ${c.name} [VERIFY: ${c.url}]`, startX, y);
+          ctx.font = 'bold 20px "Courier New", monospace';
+          ctx.fillText(`► ${c.name} (${c.issuer}) [VERIFY]`, startX, y);
         } else {
           ctx.fillStyle = C64_YELLOW;
-          ctx.font = 'bold 24px "Courier New", monospace';
-          ctx.fillText(`  ${c.name}`, startX, y);
+          ctx.font = 'bold 20px "Courier New", monospace';
+          ctx.fillText(`  ${c.name} (${c.issuer})`, startX, y);
         }
-        y += 30;
+        y += 24;
 
         ctx.fillStyle = C64_CYAN;
-        ctx.font = 'bold 20px "Courier New", monospace';
-        ctx.fillText(`   TECH : ${c.tech}`, startX, y);
+        ctx.font = '18px "Courier New", monospace';
+        ctx.fillText(`   SKILLS : ${c.tech}`, startX, y);
         y += 28;
-
-        ctx.fillStyle = C64_WHITE;
-        ctx.font = '20px "Courier New", monospace';
-        ctx.fillText(`   INFO : ${c.desc}`, startX, y);
-        y += 40;
       });
     } else if (activeSection === 'contact') {
       ctx.fillStyle = C64_WHITE;

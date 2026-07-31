@@ -26,19 +26,60 @@ export const CV_DATA = {
   ],
   certificates: [
     {
-      name: "Cisco Certified C++ Advanced Programming",
-      issuer: "Cisco Networking Academy",
-      url: "https://www.credly.com/org/cisco",
-    },
-    {
-      name: "Cisco Networking & Cybersecurity Essentials",
-      issuer: "Cisco Networking Academy",
-      url: "https://www.netacad.com",
-    },
-    {
-      name: "IBM Professional SQL & Data Engineering",
+      name: "Artificial Intelligence Fundamentals",
       issuer: "IBM",
-      url: "https://www.credly.com/org/ibm",
+      date: "Jul 2026",
+      url: "https://www.credly.com/badges/0387ce1f-7b17-456f-8447-1ee63e9a4e0d",
+      displayUrl: "credly.com/badges/0387ce1f-7b17-456f-8447-1ee63e9a4e0d",
+    },
+    {
+      name: "C++ Advanced",
+      issuer: "Cisco",
+      date: "May 2026",
+      url: "https://www.credly.com/badges/e3fd7bf4-1a87-4a69-a980-6851f18b52ce",
+      displayUrl: "credly.com/badges/e3fd7bf4-1a87-4a69-a980-6851f18b52ce",
+    },
+    {
+      name: "LFS101: Introduction to Linux",
+      issuer: "The Linux Foundation",
+      date: "May 2026",
+      url: "https://ti-user-certificates.s3.amazonaws.com/e0df7fbf-a057-42af-8a1f-590912be5460/2421a6bd-14d8-4a49-bf23-6761173d3824-aybars-barut-c6a11912-7e73-4976-8e27-50d72f2ebb3c-certificate.pdf",
+      displayUrl: "linuxfoundation.org/lfs101",
+    },
+    {
+      name: "Model Context Protocol: Advanced Topics",
+      issuer: "Anthropic",
+      date: "Apr 2026",
+      url: "https://verify.skilljar.com/c/ambpyq92zawf",
+      displayUrl: "verify.skilljar.com/c/ambpyq92zawf",
+    },
+    {
+      name: "Networking Basics",
+      issuer: "Cisco",
+      date: "May 2026",
+      url: "https://www.credly.com/badges/ed18adc3-b434-46b4-a316-7799e4024489",
+      displayUrl: "credly.com/badges/ed18adc3-b434-46b4-a316-7799e4024489",
+    },
+    {
+      name: "Data Fundamentals",
+      issuer: "IBM",
+      date: "May 2026",
+      url: "https://www.credly.com/badges/77a3e590-eec3-4ced-8496-ab86c62281af",
+      displayUrl: "credly.com/badges/77a3e590-eec3-4ced-8496-ab86c62281af",
+    },
+    {
+      name: "Endpoint Security",
+      issuer: "Cisco",
+      date: "May 2026",
+      url: "https://www.credly.com/badges/cfc7b96f-0c5a-4373-a715-194571f5d083",
+      displayUrl: "credly.com/badges/cfc7b96f-0c5a-4373-a715-194571f5d083",
+    },
+    {
+      name: "Introduction to Cybersecurity",
+      issuer: "Cisco",
+      date: "Apr 2026",
+      url: "https://www.credly.com/badges/29885bb6-4b12-45c2-ae0d-4d4c18ab7180",
+      displayUrl: "credly.com/badges/29885bb6-4b12-45c2-ae0d-4d4c18ab7180",
     },
   ],
   projects: [
@@ -82,7 +123,7 @@ export function downloadCVPdf() {
   <style>
     @page {
       size: A4 portrait;
-      margin: 8mm 10mm;
+      margin: 6mm 10mm;
     }
     @media print {
       html, body {
@@ -90,7 +131,7 @@ export function downloadCVPdf() {
         padding: 0 !important;
         background: #ffffff !important;
       }
-      @page { margin: 8mm 10mm; }
+      @page { margin: 6mm 10mm; }
     }
     * { box-sizing: border-box; }
     body {
@@ -98,48 +139,49 @@ export function downloadCVPdf() {
       margin: 0;
       padding: 0;
       color: #0f172a;
-      line-height: 1.3;
-      font-size: 10.5px;
+      line-height: 1.25;
+      font-size: 10px;
     }
     h1 {
       color: #1e1b4b;
-      margin: 0 0 2px 0;
-      font-size: 20px;
+      margin: 0 0 1px 0;
+      font-size: 19px;
       letter-spacing: -0.5px;
     }
     .subtitle {
       color: #4338ca;
       font-weight: 700;
-      font-size: 12px;
-      margin-bottom: 4px;
+      font-size: 11.5px;
+      margin-bottom: 3px;
     }
     .contact {
-      font-size: 10px;
+      font-size: 9.5px;
       color: #475569;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       border-bottom: 1.5px solid #6366f1;
-      padding-bottom: 4px;
+      padding-bottom: 3px;
     }
     .contact a { color: #3730a3; text-decoration: none; font-weight: 600; }
     .section-title {
-      font-size: 11px;
+      font-size: 10.5px;
       color: #1e1b4b;
       text-transform: uppercase;
       font-weight: 800;
       letter-spacing: 0.8px;
-      margin-top: 8px;
-      margin-bottom: 3px;
+      margin-top: 6px;
+      margin-bottom: 2px;
       border-bottom: 1px solid #cbd5e1;
-      padding-bottom: 2px;
+      padding-bottom: 1px;
     }
-    .summary-text { margin: 0 0 4px 0; color: #334155; }
-    .project-item { margin-bottom: 5px; }
-    .project-title { font-weight: 700; font-size: 11px; color: #0f172a; }
-    .tech-stack { font-size: 9.5px; color: #4f46e5; font-weight: 600; }
+    .summary-text { margin: 0 0 3px 0; color: #334155; }
+    .project-item { margin-bottom: 4px; }
+    .project-title { font-weight: 700; font-size: 10.5px; color: #0f172a; }
+    .tech-stack { font-size: 9px; color: #4f46e5; font-weight: 600; }
     .project-desc { color: #334155; }
-    ul { margin: 2px 0 4px 0; padding-left: 15px; }
-    li { margin-bottom: 2px; color: #334155; }
-    .cert-item { margin-bottom: 2px; color: #1e293b; font-size: 10px; }
+    ul { margin: 1px 0 3px 0; padding-left: 14px; }
+    li { margin-bottom: 1px; color: #334155; }
+    .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 10px; margin-top: 2px; }
+    .cert-item { color: #1e293b; font-size: 9.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .cert-link { color: #4f46e5; font-weight: 600; text-decoration: none; }
     .edu-item { margin-bottom: 2px; }
   </style>
@@ -169,13 +211,15 @@ export function downloadCVPdf() {
     ${CV_DATA.skills.map(s => `<li>${s}</li>`).join('')}
   </ul>
 
-  <div class="section-title">Certifications & Credentials</div>
-  ${CV_DATA.certificates.map(c => `
-    <div class="cert-item">
-      📜 <strong>${c.name}</strong> — ${c.issuer} 
-      (<a class="cert-link" href="${c.url}" target="_blank">${c.url}</a>)
-    </div>
-  `).join('')}
+  <div class="section-title">Certifications & Credentials (${CV_DATA.certificates.length})</div>
+  <div class="cert-grid">
+    ${CV_DATA.certificates.map(c => `
+      <div class="cert-item">
+        📜 <strong>${c.name}</strong> (${c.issuer}) 
+        <a class="cert-link" href="${c.url}" target="_blank">🔗 Verify</a>
+      </div>
+    `).join('')}
+  </div>
 
   <div class="section-title">Key Engineering Projects</div>
   ${CV_DATA.projects.map(p => `
@@ -256,12 +300,12 @@ export function downloadCVDocx() {
     <w:p><w:r><w:t></w:t></w:r></w:p>
 
     <w:p>
-      <w:r><w:rPr><w:b/><w:sz w:val="26"/><w:color w:val="1E1B4B"/></w:rPr><w:t>CERTIFICATIONS &amp; CREDENTIALS</w:t></w:r>
+      <w:r><w:rPr><w:b/><w:sz w:val="26"/><w:color w:val="1E1B4B"/></w:rPr><w:t>CERTIFICATIONS &amp; CREDENTIALS (${CV_DATA.certificates.length})</w:t></w:r>
     </w:p>
     ${CV_DATA.certificates.map(c => `
     <w:p>
-      <w:r><w:rPr><w:b/></w:rPr><w:t>${c.name} (${c.issuer})</w:t></w:r>
-      <w:r><w:t> - ${c.url}</w:t></w:r>
+      <w:r><w:rPr><w:b/></w:rPr><w:t>${c.name} (${c.issuer}, ${c.date})</w:t></w:r>
+      <w:r><w:t> - Link: ${c.url}</w:t></w:r>
     </w:p>
     `).join('')}
     <w:p><w:r><w:t></w:t></w:r></w:p>

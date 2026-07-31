@@ -286,7 +286,7 @@ export function OverlayUI() {
             animation: 'pulse 2s infinite',
           }}
         >
-          📝 SECRET NOTE UNDER MUG: &quot;Sıradaki işverenim olmak ister misin?&quot; 💼✨
+          🔍 SECRET CODE UNDER MUG: TYPE &quot;1853&quot; ON KEYBOARD! ⌨️✨
         </div>
       )}
 

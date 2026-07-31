@@ -173,14 +173,15 @@ export function OverlayUI() {
             background: 'rgba(255, 230, 100, 0.95)',
             border: '2px solid #b7791f',
             color: '#744210',
-            padding: '10px 20px',
-            borderRadius: '6px',
-            fontSize: '13px',
+            padding: '12px 24px',
+            borderRadius: '8px',
+            fontSize: '14px',
             fontWeight: 'bold',
-            boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+            animation: 'pulse 2s infinite',
           }}
         >
-          🔍 SECRET FOUND UNDER MUG: BASIC CODE [POKE 53280,0]
+          📝 SECRET NOTE UNDER MUG: &quot;Sıradaki işverenim olmak ister misin?&quot; 💼✨
         </div>
       )}
 

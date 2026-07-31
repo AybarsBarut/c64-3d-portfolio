@@ -4,7 +4,7 @@ import { sounds } from '@/utils/audio';
 
 export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpdate?: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const { powerState, setPowerState, activeSection } = useSceneStore();
+  const { powerState, setPowerState, activeSection, crtSelectedIndex } = useSceneStore();
   const cursorRef = useRef(true);
 
   // Auto-type boot sequence runner
@@ -218,8 +218,6 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
     y += 36;
 
     // Active Section Renderer
-    const crtSelectedIndex = useSceneStore.getState().crtSelectedIndex;
-
     if (activeSection === 'home') {
       ctx.fillStyle = C64_WHITE;
       ctx.font = 'bold 36px "Courier New", monospace';
@@ -233,7 +231,7 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
       y += 74;
 
       const links = [
-        { label: '🔗 GITHUB   : github.com/FahriAybarsBarut', idx: 0 },
+        { label: '🔗 GITHUB   : github.com/AybarsBarut', idx: 0 },
         { label: '🔗 LINKEDIN : linkedin.com/in/fahriaybarsbarut1853', idx: 1 },
         { label: '📖 OPEN NOTEBOOK CV (VIEW & DOWNLOAD)', idx: 2 },
       ];
@@ -280,7 +278,7 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
       y += 20;
 
       const aboutLinks = [
-        { label: '🔗 GITHUB   : github.com/FahriAybarsBarut', idx: 0 },
+        { label: '🔗 GITHUB   : github.com/AybarsBarut', idx: 0 },
         { label: '🔗 LINKEDIN : linkedin.com/in/fahriaybarsbarut1853', idx: 1 },
         { label: '📖 OPEN NOTEBOOK CV (CLOSE-UP VIEW & DOWNLOAD)', idx: 2 },
       ];
@@ -361,7 +359,7 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
       y += 44;
 
       const contactItems = [
-        { label: '🔗 GITHUB   : github.com/FahriAybarsBarut', idx: 0 },
+        { label: '🔗 GITHUB   : github.com/AybarsBarut', idx: 0 },
         { label: '🔗 LINKEDIN : linkedin.com/in/fahriaybarsbarut1853', idx: 1 },
         { label: '📄 DOWNLOAD OFFICIAL CV (PDF FORMAT)', idx: 2 },
         { label: '📝 DOWNLOAD OFFICIAL CV (DOCX FORMAT)', idx: 3 },
@@ -402,7 +400,7 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
     }
 
     if (onTextureNeedsUpdate) onTextureNeedsUpdate();
-  }, [powerState, activeSection, onTextureNeedsUpdate]);
+  }, [powerState, activeSection, crtSelectedIndex, onTextureNeedsUpdate]);
 
   return (
     <canvas

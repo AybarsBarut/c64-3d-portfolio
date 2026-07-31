@@ -72,7 +72,7 @@ export function Notebook() {
     ctx.font = 'bold 22px "Courier New", monospace';
     ctx.fillText('Computer Engineer | Simulation & VR Developer', startX, y);
     y += 36;
-    ctx.fillText('Ankara, Turkey | github.com/FahriAybarsBarut', startX, y);
+    ctx.fillText('Ankara, Turkey | github.com/AybarsBarut', startX, y);
     y += 54;
 
     // Section 1: Summary

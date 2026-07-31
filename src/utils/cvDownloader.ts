@@ -8,7 +8,7 @@ export const CV_DATA = {
   title: "Computer Engineer | Simulation & VR/XR Developer",
   location: "Ankara, Turkey",
   email: "fahriaybarsbarut@gmail.com",
-  github: "https://github.com/FahriAybarsBarut",
+  github: "https://github.com/AybarsBarut",
   linkedin: "https://linkedin.com/in/fahriaybarsbarut1853",
   summary: `Passionate Computer Engineering graduate focused on real-time systems, graphics programming, simulation engineering, and immersive VR/XR application development. Experienced in custom C++ engine development, Unity zero-allocation architectures, Unreal Engine 5 simulations, and LLM-powered RAG AI systems.`,
   skills: [
@@ -23,25 +23,25 @@ export const CV_DATA = {
       title: "Archura Engine",
       tech: "C++ | OpenGL | SDL2 | ECS",
       desc: "Custom 3D game engine featuring entity component system architecture, PBR rendering pipeline, and custom memory management.",
-      link: "https://github.com/FahriAybarsBarut",
+      link: "https://github.com/AybarsBarut",
     },
     {
       title: "Anayasal RAG AI System",
       tech: "Python | LangChain | Vector Embeddings | FastAPI",
       desc: "Domain-specific Retrieval-Augmented Generation AI system trained on the Turkish Constitution for instant legal reference.",
-      link: "https://github.com/FahriAybarsBarut",
+      link: "https://github.com/AybarsBarut",
     },
     {
       title: "Unity Zero-GC Runtime Diagnostics",
       tech: "Unity 3D | C# | Profiler API",
       desc: "High-performance event system and real-time profiler overlay with zero GC allocations during execution loop.",
-      link: "https://github.com/FahriAybarsBarut",
+      link: "https://github.com/AybarsBarut",
     },
     {
       title: "Plasma Logic Simulation",
       tech: "Python | Monte Carlo | Computational Physics",
       desc: "Educational simulation modeling plasma discharge physics to construct virtual digital logic gates.",
-      link: "https://github.com/FahriAybarsBarut",
+      link: "https://github.com/AybarsBarut",
     },
   ],
   education: [

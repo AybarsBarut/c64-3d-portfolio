@@ -131,29 +131,29 @@ export const useSceneStore = create<SceneState>((set, get) => ({
     
     if (activeSection === 'home') {
       const actions = [
-        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
+        () => window.open('https://github.com/AybarsBarut', '_blank'),
         () => window.open('https://linkedin.com/in/fahriaybarsbarut1853', '_blank'),
         () => toggleNotebook(),
       ];
       if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
     } else if (activeSection === 'about') {
       const actions = [
-        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
+        () => window.open('https://github.com/AybarsBarut', '_blank'),
         () => window.open('https://linkedin.com/in/fahriaybarsbarut1853', '_blank'),
         () => toggleNotebook(),
       ];
       if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
     } else if (activeSection === 'projects') {
       const actions = [
-        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
-        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
-        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
-        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
+        () => window.open('https://github.com/AybarsBarut', '_blank'),
+        () => window.open('https://github.com/AybarsBarut', '_blank'),
+        () => window.open('https://github.com/AybarsBarut', '_blank'),
+        () => window.open('https://github.com/AybarsBarut', '_blank'),
       ];
       if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
     } else if (activeSection === 'contact') {
       const actions = [
-        () => window.open('https://github.com/FahriAybarsBarut', '_blank'),
+        () => window.open('https://github.com/AybarsBarut', '_blank'),
         () => window.open('https://linkedin.com/in/fahriaybarsbarut1853', '_blank'),
         () => downloadCVPdf(),
         () => downloadCVDocx(),

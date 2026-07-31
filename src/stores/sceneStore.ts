@@ -25,6 +25,7 @@ interface SceneState {
   joystickAngle: { x: number; z: number };
   secretFound: boolean;
   musicPlaying: boolean;
+  hireModalOpen: boolean;
   
   pressedKey: string | null;
   deskOffset: { x: number; z: number };
@@ -43,6 +44,8 @@ interface SceneState {
   toggleNotebook: () => void;
   toggleMug: () => void;
   toggleMusic: () => void;
+  triggerHireModal: () => void;
+  closeHireModal: () => void;
   setJoystickAngle: (angle: { x: number; z: number }) => void;
   setDeskOffset: (offset: { x: number; z: number }) => void;
   setHoveredObject: (name: string | null) => void;
@@ -67,6 +70,7 @@ export const useSceneStore = create<SceneState>((set, get) => ({
   joystickAngle: { x: 0, z: 0 },
   secretFound: false,
   musicPlaying: false,
+  hireModalOpen: false,
 
   pressedKey: null,
   deskOffset: { x: 0, z: 0 },
@@ -124,6 +128,8 @@ export const useSceneStore = create<SceneState>((set, get) => ({
   setHoveredObject: (name) => set({ hoveredObject: name }),
   setTypedLines: (lines) => set({ typedLines: lines }),
   triggerSecret: () => set({ secretFound: true }),
+  triggerHireModal: () => set({ hireModalOpen: true }),
+  closeHireModal: () => set({ hireModalOpen: false }),
   setCrtSelectedIndex: (idx) => set({ crtSelectedIndex: idx }),
 
   navigateUp: () => {

@@ -84,8 +84,9 @@ export const C64_KEYS: KeyConfig[] = [
 ];
 
 export function C64Keyboard() {
-  const { setPressedKey, setSection, activeSection, navigateUp, navigateDown, triggerCurrentSelection, floppyInserted } = useSceneStore();
+  const { setPressedKey, setSection, activeSection, navigateUp, navigateDown, triggerCurrentSelection, floppyInserted, powerState, triggerHireModal } = useSceneStore();
   const [activeKeys, setActiveKeys] = useState<Record<string, boolean>>({});
+  const [seqBuffer, setSeqBuffer] = useState('');
 
   const sections: Section[] = ['home', 'about', 'projects', 'certs', 'contact', ...(floppyInserted ? ['game' as const] : [])];
 
@@ -124,6 +125,22 @@ export function C64Keyboard() {
     const handleKeyDown = (e: KeyboardEvent) => {
       const code = e.code;
       const key = e.key;
+
+      // 1853 Secret Code Sequence Listener
+      if (powerState !== 'off') {
+        const char = key.length === 1 ? key : '';
+        if (char && '0123456789'.includes(char)) {
+          setSeqBuffer((prev) => {
+            const next = (prev + char).slice(-4);
+            if (next === '1853') {
+              sounds.playC64Beep();
+              triggerHireModal();
+              return '';
+            }
+            return next;
+          });
+        }
+      }
 
       if (
         ['F1', 'F3', 'F5', 'F7', 'F8', 'F10', 'Space', 'Backspace', 'Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(code) ||
@@ -214,7 +231,7 @@ export function C64Keyboard() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeSection, navigateUp, navigateDown, triggerCurrentSelection]);
+  }, [activeSection, navigateUp, navigateDown, triggerCurrentSelection, powerState, triggerHireModal]);
 
 
   return (

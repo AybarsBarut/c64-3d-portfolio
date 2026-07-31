@@ -9,15 +9,13 @@ export type PowerState =
   | 'on' 
   | 'turning_off';
 
-export type Section = 'home' | 'about' | 'projects' | 'contact';
+export type Section = 'home' | 'about' | 'projects' | 'certs' | 'contact';
 
 interface SceneState {
-  // Power & Boot
   powerState: PowerState;
   activeSection: Section;
   typedLines: string[];
   
-  // Interactive Props
   lampOn: boolean;
   floppyInserted: boolean;
   cassetteInserted: boolean;
@@ -26,15 +24,12 @@ interface SceneState {
   joystickAngle: { x: number; z: number };
   secretFound: boolean;
   
-  // Controls & Camera
-  // Interactive Selection & Navigation State
   pressedKey: string | null;
   deskOffset: { x: number; z: number };
   hoveredObject: string | null;
   crtSelectedIndex: number;
   notebookScrollY: number;
 
-  // Actions
   turnOn: () => void;
   turnOff: () => void;
   setPowerState: (state: PowerState) => void;
@@ -57,7 +52,6 @@ interface SceneState {
 }
 
 export const useSceneStore = create<SceneState>((set, get) => ({
-  // Computer starts POWERED OFF by default on site entry
   powerState: 'off',
   activeSection: 'home',
   typedLines: [],
@@ -95,7 +89,7 @@ export const useSceneStore = create<SceneState>((set, get) => ({
   toggleLamp: () => set((s) => ({ lampOn: !s.lampOn })),
   toggleFloppy: () => set((s) => ({ floppyInserted: !s.floppyInserted })),
   toggleCassette: () => set((s) => ({ cassetteInserted: !s.cassetteInserted })),
-  toggleNotebook: () => set((s) => ({ notebookOpen: !s.notebookOpen })),
+  toggleNotebook: () => set((s) => ({ notebookOpen: !s.notebookOpen, notebookScrollY: 0 })),
   toggleMug: () => set((s) => ({ mugLifted: !s.mugLifted })),
   setJoystickAngle: (angle) => set({ joystickAngle: angle }),
   setDeskOffset: (offset) => set({ deskOffset: offset }),
@@ -109,7 +103,7 @@ export const useSceneStore = create<SceneState>((set, get) => ({
     if (notebookOpen) {
       set((s) => ({ notebookScrollY: Math.max(0, s.notebookScrollY - 40) }));
     } else {
-      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, contact: 7 };
+      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, certs: 4, contact: 4 };
       const max = counts[activeSection] || 4;
       set({ crtSelectedIndex: (crtSelectedIndex - 1 + max) % max });
     }
@@ -120,7 +114,7 @@ export const useSceneStore = create<SceneState>((set, get) => ({
     if (notebookOpen) {
       set((s) => ({ notebookScrollY: Math.min(300, s.notebookScrollY + 40) }));
     } else {
-      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, contact: 7 };
+      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, certs: 4, contact: 4 };
       const max = counts[activeSection] || 4;
       set({ crtSelectedIndex: (crtSelectedIndex + 1) % max });
     }
@@ -151,13 +145,18 @@ export const useSceneStore = create<SceneState>((set, get) => ({
         () => window.open('https://github.com/AybarsBarut/Archura-Airprint-Reciever-For-Android', '_blank'),
       ];
       if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
+    } else if (activeSection === 'certs') {
+      const actions = [
+        () => window.open('https://www.credly.com/org/cisco', '_blank'),
+        () => window.open('https://www.netacad.com', '_blank'),
+        () => window.open('https://www.credly.com/org/ibm', '_blank'),
+        () => window.open('https://courses.nvidia.com/certificates', '_blank'),
+      ];
+      if (actions[crtSelectedIndex]) actions[crtSelectedIndex]();
     } else if (activeSection === 'contact') {
       const actions = [
         () => window.open('https://github.com/AybarsBarut', '_blank'),
         () => window.open('https://linkedin.com/in/fahriaybarsbarut1853', '_blank'),
-        () => window.open('https://www.credly.com/org/cisco', '_blank'),
-        () => window.open('https://www.netacad.com', '_blank'),
-        () => window.open('https://www.credly.com/org/ibm', '_blank'),
         () => downloadCVPdf(),
         () => downloadCVDocx(),
       ];
@@ -165,4 +164,3 @@ export const useSceneStore = create<SceneState>((set, get) => ({
     }
   },
 }));
-

@@ -185,12 +185,13 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
     y += 52;
 
     // Navigation Bar
-    ctx.font = 'bold 26px "Courier New", monospace';
+    ctx.font = 'bold 24px "Courier New", monospace';
     const keys = [
       { key: 'F1', label: 'HOME', active: activeSection === 'home' },
       { key: 'F3', label: 'ABOUT', active: activeSection === 'about' },
       { key: 'F5', label: 'PROJECTS', active: activeSection === 'projects' },
-      { key: 'F7', label: 'CONTACT', active: activeSection === 'contact' },
+      { key: 'F7', label: 'CERTS', active: activeSection === 'certs' },
+      { key: 'F8', label: 'CONTACT', active: activeSection === 'contact' },
     ];
 
     let kx = startX;
@@ -199,13 +200,13 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
       const w = ctx.measureText(text).width;
       if (k.active) {
         ctx.fillStyle = C64_WHITE;
-        ctx.fillRect(kx - 4, y - 4, w + 8, 36);
+        ctx.fillRect(kx - 4, y - 4, w + 8, 34);
         ctx.fillStyle = '#2b2075';
       } else {
         ctx.fillStyle = C64_CYAN;
       }
       ctx.fillText(text, kx, y);
-      kx += w + 44;
+      kx += w + 20;
     });
 
     y += 52;
@@ -222,13 +223,14 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
       ctx.fillStyle = C64_WHITE;
       ctx.font = 'bold 36px "Courier New", monospace';
       ctx.fillText('FAHRI AYBARS BARUT', startX, y);
-      y += 48;
+      y += 42;
 
       ctx.fillStyle = C64_CYAN;
       ctx.font = 'bold 24px "Courier New", monospace';
       ctx.fillText('Computer Engineer | Simulation & VR/XR Developer', startX, y);
-      ctx.fillText('Location: Ankara, Turkey', startX, y + 32);
-      y += 74;
+      y += 36;
+      ctx.fillText('Location: Ankara, Turkey', startX, y);
+      y += 50;
 
       const links = [
         { label: '🔗 GITHUB   : github.com/AybarsBarut', idx: 0 },
@@ -245,62 +247,44 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
           ctx.font = 'bold 24px "Courier New", monospace';
           ctx.fillText(`► ${link.label} [PRESS RETURN]`, startX, y);
         } else {
-          ctx.fillStyle = C64_CYAN;
+          ctx.fillStyle = C64_YELLOW;
           ctx.font = 'bold 24px "Courier New", monospace';
           ctx.fillText(`  ${link.label}`, startX, y);
         }
-        y += 42;
+        y += 44;
       });
 
-      y += 24;
+      y += 30;
       ctx.fillStyle = C64_GREEN;
       ctx.font = 'bold 22px "Courier New", monospace';
       ctx.fillText('>>> USE ARROW KEYS [▲/▼] TO NAVIGATE LINKS & RETURN TO SELECT >>>', startX, y);
     } else if (activeSection === 'about') {
       ctx.fillStyle = C64_WHITE;
       ctx.font = 'bold 34px "Courier New", monospace';
-      ctx.fillText('SYS_INFO: ENGINEERING PROFILE', startX, y);
+      ctx.fillText('SYS_INFO: /ABOUT/BACKGROUND', startX, y);
       y += 44;
 
       ctx.fillStyle = C64_CYAN;
-      ctx.font = 'bold 24px "Courier New", monospace';
+      ctx.font = 'bold 22px "Courier New", monospace';
       const aboutLines = [
-        'NAME    : FAHRI AYBARS BARUT',
-        'DEGREE  : B.S. COMPUTER ENGINEERING',
-        'FOCUS   : SIMULATION, VR/XR, REAL-TIME SYSTEMS',
-        'LOC     : ANKARA, TURKEY',
+        'COMPUTER ENGINEERING GRADUATE FROM SIVAS CUMHURIYET UNIVERSITY.',
+        'SPECIALIZED IN GRAPHICS PROGRAMMING, SIMULATION SYSTEMS, AND VR/XR.',
+        'EXPERIENCED WITH C++, C#, PYTHON, OPENGL, UNREAL ENGINE 5 & UNITY.',
+        'DESIGNING ZERO-ALLOCATION ARCHITECTURES & RAG AI LEGAL SYSTEMS.',
       ];
+
       aboutLines.forEach((line) => {
         ctx.fillText(line, startX, y);
         y += 34;
       });
 
-      y += 20;
-
-      const aboutLinks = [
-        { label: '🔗 GITHUB   : github.com/AybarsBarut', idx: 0 },
-        { label: '🔗 LINKEDIN : linkedin.com/in/fahriaybarsbarut1853', idx: 1 },
-        { label: '📖 OPEN NOTEBOOK CV (CLOSE-UP VIEW & DOWNLOAD)', idx: 2 },
-      ];
-
-      aboutLinks.forEach((link) => {
-        const isSel = crtSelectedIndex === link.idx;
-        if (isSel) {
-          ctx.fillStyle = C64_YELLOW;
-          ctx.fillRect(startX - 8, y - 4, 880, 36);
-          ctx.fillStyle = '#000000';
-          ctx.font = 'bold 24px "Courier New", monospace';
-          ctx.fillText(`► ${link.label}`, startX, y);
-        } else {
-          ctx.fillStyle = C64_CYAN;
-          ctx.font = 'bold 24px "Courier New", monospace';
-          ctx.fillText(`  ${link.label}`, startX, y);
-        }
-        y += 40;
-      });
+      y += 30;
+      ctx.fillStyle = C64_YELLOW;
+      ctx.font = 'bold 24px "Courier New", monospace';
+      ctx.fillText('PRESS [F5] FOR PROJECTS OR [F7] FOR CERTIFICATIONS', startX, y);
     } else if (activeSection === 'projects') {
       ctx.fillStyle = C64_WHITE;
-      ctx.font = 'bold 32px "Courier New", monospace';
+      ctx.font = 'bold 34px "Courier New", monospace';
       ctx.fillText('DIRECTORY: /PORTFOLIO/PROJECTS', startX, y);
       y += 40;
 
@@ -356,36 +340,91 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
         ctx.fillText(`   INFO : ${p.desc}`, startX, y);
         y += 40;
       });
+    } else if (activeSection === 'certs') {
+      ctx.fillStyle = C64_WHITE;
+      ctx.font = 'bold 34px "Courier New", monospace';
+      ctx.fillText('DIRECTORY: /PORTFOLIO/CERTIFICATIONS', startX, y);
+      y += 40;
+
+      const certs = [
+        {
+          name: '1. CISCO CERTIFIED C++ ADVANCED',
+          url: 'credly.com/org/cisco',
+          tech: 'C++17 | OOP | Memory & Pointers | Templates',
+          desc: 'Advanced C++ Programming Certification by Cisco NetAcad',
+        },
+        {
+          name: '2. CISCO NETWORKING & CYBERSECURITY',
+          url: 'netacad.com',
+          tech: 'Computer Networks | Protocols | Firewalls | Security',
+          desc: 'Networking & Cybersecurity Essentials Certification',
+        },
+        {
+          name: '3. IBM PROFESSIONAL DATA ENGINEERING',
+          url: 'credly.com/org/ibm',
+          tech: 'Relational DBs | SQL Queries | Data Pipelines',
+          desc: 'Professional Data Engineering & SQL Certification by IBM',
+        },
+        {
+          name: '4. NVIDIA DEEP LEARNING ESSENTIALS',
+          url: 'courses.nvidia.com',
+          tech: 'Deep Learning | GPU Acceleration | Neural Networks',
+          desc: 'Fundamentals of Deep Learning Certification by NVIDIA DLI',
+        },
+      ];
+
+      certs.forEach((c, idx) => {
+        const isSel = crtSelectedIndex % certs.length === idx;
+        if (isSel) {
+          ctx.fillStyle = C64_YELLOW;
+          ctx.fillRect(startX - 8, y - 4, 880, 32);
+          ctx.fillStyle = '#000000';
+          ctx.font = 'bold 23px "Courier New", monospace';
+          ctx.fillText(`► ${c.name} [VERIFY: ${c.url}]`, startX, y);
+        } else {
+          ctx.fillStyle = C64_YELLOW;
+          ctx.font = 'bold 24px "Courier New", monospace';
+          ctx.fillText(`  ${c.name}`, startX, y);
+        }
+        y += 30;
+
+        ctx.fillStyle = C64_CYAN;
+        ctx.font = 'bold 20px "Courier New", monospace';
+        ctx.fillText(`   TECH : ${c.tech}`, startX, y);
+        y += 28;
+
+        ctx.fillStyle = C64_WHITE;
+        ctx.font = '20px "Courier New", monospace';
+        ctx.fillText(`   INFO : ${c.desc}`, startX, y);
+        y += 40;
+      });
     } else if (activeSection === 'contact') {
       ctx.fillStyle = C64_WHITE;
       ctx.font = 'bold 34px "Courier New", monospace';
-      ctx.fillText('COMMODORE DATALINK (CONTACT & CERTS)', startX, y);
+      ctx.fillText('COMMODORE DATALINK (CONTACT)', startX, y);
       y += 44;
 
       const contactItems = [
-        { label: '🔗 GITHUB      : github.com/AybarsBarut', idx: 0 },
-        { label: '🔗 LINKEDIN    : linkedin.com/in/fahriaybarsbarut1853', idx: 1 },
-        { label: '📜 CISCO C++   : credly.com/org/cisco (Advanced C++)', idx: 2 },
-        { label: '📜 CISCO CYBER : netacad.com (Networking & Security)', idx: 3 },
-        { label: '📜 IBM DATA    : credly.com/org/ibm (SQL & Data Eng)', idx: 4 },
-        { label: '📄 DOWNLOAD OFFICIAL CV (PDF FORMAT)', idx: 5 },
-        { label: '📝 DOWNLOAD OFFICIAL CV (DOCX FORMAT)', idx: 6 },
+        { label: '🔗 GITHUB   : github.com/AybarsBarut', idx: 0 },
+        { label: '🔗 LINKEDIN : linkedin.com/in/fahriaybarsbarut1853', idx: 1 },
+        { label: '📄 DOWNLOAD OFFICIAL CV (PDF FORMAT)', idx: 2 },
+        { label: '📝 DOWNLOAD OFFICIAL CV (DOCX FORMAT)', idx: 3 },
       ];
 
       contactItems.forEach((item) => {
         const isSel = crtSelectedIndex === item.idx;
         if (isSel) {
           ctx.fillStyle = C64_YELLOW;
-          ctx.fillRect(startX - 8, y - 4, 880, 32);
+          ctx.fillRect(startX - 8, y - 4, 880, 36);
           ctx.fillStyle = '#000000';
-          ctx.font = 'bold 22px "Courier New", monospace';
+          ctx.font = 'bold 24px "Courier New", monospace';
           ctx.fillText(`► ${item.label} [PRESS RETURN]`, startX, y);
         } else {
           ctx.fillStyle = C64_CYAN;
-          ctx.font = 'bold 22px "Courier New", monospace';
+          ctx.font = 'bold 24px "Courier New", monospace';
           ctx.fillText(`  ${item.label}`, startX, y);
         }
-        y += 35;
+        y += 42;
       });
 
       y += 20;

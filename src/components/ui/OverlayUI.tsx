@@ -161,7 +161,8 @@ export function OverlayUI() {
           { key: 'F1', label: 'HOME', section: 'home' as const },
           { key: 'F3', label: 'ABOUT', section: 'about' as const },
           { key: 'F5', label: 'PROJECTS', section: 'projects' as const },
-          { key: 'F7', label: 'CONTACT', section: 'contact' as const },
+          { key: 'F7', label: 'CERTS', section: 'certs' as const },
+          { key: 'F8', label: 'CONTACT', section: 'contact' as const },
         ].map((item) => {
           const isActive = activeSection === item.section;
           return (

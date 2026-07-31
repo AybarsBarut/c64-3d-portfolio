@@ -79,14 +79,16 @@ export function SceneCamera() {
     setDeskOffset({ x: lerpX, z: lerpZ });
 
     if (notebookOpen) {
-      // Direct Top-Down Angled View focused on the Notebook CV
+      // Frame notebook dead center in world space accounting for deskOffset
+      const targetX = deskOffset.x;
+      const targetZ = deskOffset.z;
       const notebookCamPos = new THREE.Vector3(
-        mouseRef.current.x * 0.1,
+        targetX + mouseRef.current.x * 0.1,
         2.25,
-        3.0
+        targetZ + 3.0
       );
       camera.position.lerp(notebookCamPos, 0.1);
-      camera.lookAt(0, 0.18, 2.50);
+      camera.lookAt(targetX, 0.18, targetZ + 2.50);
       return;
     }
 

@@ -32,7 +32,7 @@ export function CassetteTape() {
         <meshStandardMaterial color="#cbd5e1" roughness={0.2} metalness={0.8} />
       </mesh>
 
-      {/* Recessed Control Buttons Slot (Rear top edge z = -0.80) */}
+      {/* Recessed Control Buttons Slot (Rear top edge z = -0.82) */}
       <mesh position={[0, 0.14, -0.82]}>
         <boxGeometry args={[1.22, 0.03, 0.36]} />
         <meshStandardMaterial color="#141415" roughness={0.8} />
@@ -54,13 +54,13 @@ export function CassetteTape() {
         );
       })}
 
-      {/* Mechanical 3-Digit Counter Box (Top right z = -0.45) */}
+      {/* Mechanical 3-Digit Counter Box (Top right z = -0.42) */}
       <mesh position={[0.45, 0.155, -0.42]}>
         <boxGeometry args={[0.24, 0.02, 0.14]} />
         <meshStandardMaterial color="#0f172a" roughness={0.3} />
       </mesh>
 
-      {/* Red Activity LED (Top left z = -0.45) */}
+      {/* Red Activity LED (Top left z = -0.42) */}
       <mesh position={[-0.45, 0.16, -0.42]}>
         <cylinderGeometry args={[0.025, 0.025, 0.015, 16]} />
         <meshStandardMaterial
@@ -122,29 +122,48 @@ export function CassetteTape() {
         </mesh>
       </group>
 
-      {/* Clear Smoked Door Lid (Hinged cleanly at rear edge of well z = -0.26) */}
+      {/* Clear Smoked Door Lid (Hinged at rear edge of well z = -0.26) */}
       <group position={[0, 0.155, -0.26]} rotation={[cassetteInserted ? -0.55 : 0, 0, 0]}>
-        {/* Outer Dark Frame Bezel */}
-        <mesh position={[0, 0.008, 0.41]} castShadow>
-          <boxGeometry args={[1.16, 0.012, 0.82]} />
-          <meshStandardMaterial color="#27272a" roughness={0.4} />
-        </mesh>
-
-        {/* Clear Transparent Smoked Window */}
-        <mesh position={[0, 0.009, 0.41]}>
-          <boxGeometry args={[1.00, 0.010, 0.66]} />
+        {/* Clear Transparent Smoked Window (Center cavity without overlapping bezel faces) */}
+        <mesh position={[0, 0.006, 0.41]}>
+          <boxGeometry args={[1.02, 0.006, 0.68]} />
           <meshStandardMaterial
             color="#38bdf8"
             transparent
-            opacity={0.25}
+            opacity={0.30}
             roughness={0.1}
             metalness={0.1}
           />
         </mesh>
 
+        {/* Non-overlapping Outer Bezel Frame Strips */}
+        {/* Top Rear Border */}
+        <mesh position={[0, 0.006, 0.035]} castShadow>
+          <boxGeometry args={[1.16, 0.012, 0.07]} />
+          <meshStandardMaterial color="#27272a" roughness={0.4} />
+        </mesh>
+
+        {/* Bottom Front Border */}
+        <mesh position={[0, 0.006, 0.785]} castShadow>
+          <boxGeometry args={[1.16, 0.012, 0.07]} />
+          <meshStandardMaterial color="#27272a" roughness={0.4} />
+        </mesh>
+
+        {/* Left Side Border */}
+        <mesh position={[-0.545, 0.006, 0.41]} castShadow>
+          <boxGeometry args={[0.07, 0.012, 0.68]} />
+          <meshStandardMaterial color="#27272a" roughness={0.4} />
+        </mesh>
+
+        {/* Right Side Border */}
+        <mesh position={[0.545, 0.006, 0.41]} castShadow>
+          <boxGeometry args={[0.07, 0.012, 0.68]} />
+          <meshStandardMaterial color="#27272a" roughness={0.4} />
+        </mesh>
+
         {/* Plastic Lid Handle Ridge */}
-        <mesh position={[0, 0.016, 0.80]}>
-          <boxGeometry args={[0.26, 0.012, 0.03]} />
+        <mesh position={[0, 0.013, 0.80]}>
+          <boxGeometry args={[0.26, 0.014, 0.03]} />
           <meshStandardMaterial color="#52525b" roughness={0.3} />
         </mesh>
       </group>

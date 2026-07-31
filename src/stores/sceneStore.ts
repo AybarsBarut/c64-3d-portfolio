@@ -9,7 +9,7 @@ export type PowerState =
   | 'on' 
   | 'turning_off';
 
-export type Section = 'home' | 'about' | 'projects' | 'certs' | 'contact';
+export type Section = 'home' | 'about' | 'projects' | 'certs' | 'contact' | 'game';
 
 interface SceneState {
   powerState: PowerState;
@@ -87,7 +87,16 @@ export const useSceneStore = create<SceneState>((set, get) => ({
   setSection: (section) => set({ activeSection: section, crtSelectedIndex: 0 }),
   setPressedKey: (key) => set({ pressedKey: key }),
   toggleLamp: () => set((s) => ({ lampOn: !s.lampOn })),
-  toggleFloppy: () => set((s) => ({ floppyInserted: !s.floppyInserted })),
+  toggleFloppy: () => {
+    const isInserting = !get().floppyInserted;
+    if (isInserting && get().powerState === 'off') {
+      get().turnOn();
+    }
+    set((s) => ({
+      floppyInserted: isInserting,
+      activeSection: isInserting ? 'game' : s.activeSection,
+    }));
+  },
   toggleCassette: () => set((s) => ({ cassetteInserted: !s.cassetteInserted })),
   toggleNotebook: () => set((s) => ({ notebookOpen: !s.notebookOpen, notebookScrollY: 0 })),
   toggleMug: () => set((s) => ({ mugLifted: !s.mugLifted })),
@@ -103,7 +112,7 @@ export const useSceneStore = create<SceneState>((set, get) => ({
     if (notebookOpen) {
       set((s) => ({ notebookScrollY: Math.max(0, s.notebookScrollY - 40) }));
     } else {
-      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, certs: 8, contact: 4 };
+      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, certs: 8, contact: 4, game: 1 };
       const max = counts[activeSection] || 4;
       set({ crtSelectedIndex: (crtSelectedIndex - 1 + max) % max });
     }
@@ -114,7 +123,7 @@ export const useSceneStore = create<SceneState>((set, get) => ({
     if (notebookOpen) {
       set((s) => ({ notebookScrollY: Math.min(300, s.notebookScrollY + 40) }));
     } else {
-      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, certs: 8, contact: 4 };
+      const counts: Record<string, number> = { home: 3, about: 3, projects: 4, certs: 8, contact: 4, game: 1 };
       const max = counts[activeSection] || 4;
       set({ crtSelectedIndex: (crtSelectedIndex + 1) % max });
     }

@@ -163,6 +163,7 @@ export function OverlayUI() {
           { key: 'F5', label: 'PROJECTS', section: 'projects' as const },
           { key: 'F7', label: 'CERTS', section: 'certs' as const },
           { key: 'F8', label: 'CONTACT', section: 'contact' as const },
+          { key: 'F10', label: 'GAME 🎮', section: 'game' as const },
         ].map((item) => {
           const isActive = activeSection === item.section;
           return (
@@ -194,19 +195,30 @@ export function OverlayUI() {
           position: 'absolute',
           bottom: '24px',
           left: '24px',
-          color: 'rgba(255,255,255,0.7)',
+          color: 'rgba(255,255,255,0.75)',
           fontSize: '11px',
           lineHeight: '1.6',
-          background: 'rgba(0,0,0,0.65)',
+          background: 'rgba(0,0,0,0.75)',
           padding: '10px 14px',
           borderRadius: '8px',
-          border: '1px solid rgba(255,255,255,0.1)',
+          border: '1px solid rgba(255,255,255,0.15)',
         }}
       >
-        <div>⌨️ <b>ARROW KEYS (▲/▼):</b> Navigate links / scroll page</div>
-        <div>⏎ <b>RETURN / ENTER:</b> Open highlighted link or action</div>
-        <div>📖 <b>NOTEBOOK:</b> Click notebook to view & download CV</div>
-        <div>🖱️ <b>DRAG / WHEEL:</b> Shift desk camera perspective</div>
+        {activeSection === 'game' ? (
+          <>
+            <div>🎮 <b>TETRIS MODE ACTIVE:</b></div>
+            <div>⌨️ <b>ARROW KEYS / WASD:</b> Move & Rotate Piece</div>
+            <div>🕹️ <b>JOYSTICK:</b> Drag stick Left/Right/Up/Down</div>
+            <div>💾 <b>FLOPPY DISK:</b> Click disk to eject / insert</div>
+          </>
+        ) : (
+          <>
+            <div>⌨️ <b>ARROW KEYS (▲/▼):</b> Navigate links / scroll page</div>
+            <div>⏎ <b>RETURN / ENTER:</b> Open highlighted link or action</div>
+            <div>💾 <b>FLOPPY DISK:</b> Insert disk to launch Tetris 64</div>
+            <div>🕹️ <b>JOYSTICK:</b> Drag stick or use keys to control game</div>
+          </>
+        )}
       </div>
     </div>
   );

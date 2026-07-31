@@ -80,13 +80,14 @@ export const C64_KEYS: KeyConfig[] = [
   { code: 'F3', label: 'F3', x: 2.25, z: -0.2, w: 0.28, isFn: true, section: 'about' },
   { code: 'F5', label: 'F5', x: 2.25, z: 0.05, w: 0.28, isFn: true, section: 'projects' },
   { code: 'F7', label: 'F7', x: 2.25, z: 0.3, w: 0.28, isFn: true, section: 'certs' },
+  { code: 'F10', label: 'F10', x: 2.25, z: 0.55, w: 0.28, isFn: true, section: 'game' },
 ];
 
 export function C64Keyboard() {
   const { setPressedKey, setSection, activeSection, navigateUp, navigateDown, triggerCurrentSelection } = useSceneStore();
   const [activeKeys, setActiveKeys] = useState<Record<string, boolean>>({});
 
-  const sections: Section[] = ['home', 'about', 'projects', 'certs', 'contact'];
+  const sections: Section[] = ['home', 'about', 'projects', 'certs', 'contact', 'game'];
 
   const triggerKeyAction = (keyConfig: KeyConfig) => {
     sounds.playKeyPress();
@@ -103,11 +104,11 @@ export function C64Keyboard() {
     } else if (keyConfig.action === 'back') {
       setSection('home');
     } else if (keyConfig.action === 'up') {
-      navigateUp();
+      if (activeSection !== 'game') navigateUp();
     } else if (keyConfig.action === 'down') {
-      navigateDown();
+      if (activeSection !== 'game') navigateDown();
     } else if (keyConfig.action === 'select') {
-      triggerCurrentSelection();
+      if (activeSection !== 'game') triggerCurrentSelection();
     }
 
     setActiveKeys((prev) => ({ ...prev, [keyConfig.code]: true }));
@@ -123,8 +124,8 @@ export function C64Keyboard() {
       const key = e.key;
 
       if (
-        ['F1', 'F3', 'F5', 'F7', 'F8', 'Space', 'Backspace', 'Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(code) ||
-        ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', 'Up', 'Down', 'Left', 'Right', 'F1', 'F3', 'F5', 'F7', 'F8'].includes(key)
+        ['F1', 'F3', 'F5', 'F7', 'F8', 'F10', 'Space', 'Backspace', 'Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(code) ||
+        ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter', 'Up', 'Down', 'Left', 'Right', 'F1', 'F3', 'F5', 'F7', 'F8', 'F10'].includes(key)
       ) {
         e.preventDefault();
       }
@@ -154,6 +155,14 @@ export function C64Keyboard() {
         setSection('contact');
         return;
       }
+      if (code === 'F10' || key === 'F10') {
+        sounds.playKeyPress();
+        setSection('game');
+        return;
+      }
+
+      // If in game section, arrow keys / space / enter are handled by Tetris hook
+      if (activeSection === 'game') return;
 
       if (code === 'Space' || key === ' ' || key === 'Spacebar') {
         sounds.playKeyPress();

@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { useSceneStore } from '@/stores/sceneStore';
 import { sounds } from '@/utils/audio';
+import { useTetris, TETROMINOES, COLS, ROWS } from '@/hooks/useTetris';
 
 export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpdate?: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { powerState, setPowerState, activeSection, crtSelectedIndex } = useSceneStore();
   const cursorRef = useRef(true);
+  const tetris = useTetris();
 
   // Auto-type boot sequence runner
   useEffect(() => {
@@ -196,6 +198,7 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
       { key: 'F5', label: 'PROJECTS', active: activeSection === 'projects' },
       { key: 'F7', label: 'CERTS', active: activeSection === 'certs' },
       { key: 'F8', label: 'CONTACT', active: activeSection === 'contact' },
+      { key: 'F10', label: 'GAME', active: activeSection === 'game' },
     ];
 
     let kx = startX;
@@ -454,6 +457,174 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
       ctx.fillStyle = C64_GREEN;
       ctx.font = 'bold 22px "Courier New", monospace';
       ctx.fillText('STATUS: OPEN FOR SIMULATION & VR/XR LAB PROJECTS!', startX, y);
+    } else if (activeSection === 'game') {
+      const { grid, activePiece, nextPieceType, score, lines, level, gameOver } = tetris;
+
+      // Header Title
+      ctx.fillStyle = C64_YELLOW;
+      ctx.font = 'bold 30px "Courier New", monospace';
+      ctx.fillText('**** TETRIS 64 - FLOPPY EDITION ****', startX, y);
+      y += 36;
+
+      // Board coordinates
+      const boardX = startX + 30;
+      const boardY = y;
+      const cellSize = 32; // 10 * 32 = 320px width, 20 * 32 = 640px height
+      const boardW = COLS * cellSize;
+      const boardH = ROWS * cellSize;
+
+      // Board Outer Frame
+      ctx.fillStyle = '#080816';
+      ctx.fillRect(boardX, boardY, boardW, boardH);
+      ctx.strokeStyle = '#6c63ff';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(boardX - 3, boardY - 3, boardW + 6, boardH + 6);
+
+      // Render Grid Cells
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          const color = grid[r][c];
+          const cx = boardX + c * cellSize;
+          const cy = boardY + r * cellSize;
+
+          if (color) {
+            ctx.fillStyle = color;
+            ctx.fillRect(cx + 1, cy + 1, cellSize - 2, cellSize - 2);
+            // Highlight
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.fillRect(cx + 1, cy + 1, cellSize - 2, 4);
+            ctx.fillRect(cx + 1, cy + 1, 4, cellSize - 2);
+            // Shadow
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+            ctx.fillRect(cx + 1, cy + cellSize - 5, cellSize - 2, 4);
+            ctx.fillRect(cx + cellSize - 5, cy + 1, 4, cellSize - 2);
+          } else {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+            ctx.fillRect(cx + cellSize / 2 - 1, cy + cellSize / 2 - 1, 2, 2);
+          }
+        }
+      }
+
+      // Render Active Falling Piece
+      if (activePiece && !gameOver) {
+        const { shape, color, x: px, y: py } = activePiece;
+        for (let r = 0; r < shape.length; r++) {
+          for (let c = 0; c < shape[r].length; c++) {
+            if (shape[r][c]) {
+              const cx = boardX + (px + c) * cellSize;
+              const cy = boardY + (py + r) * cellSize;
+              if (cy >= boardY) {
+                ctx.fillStyle = color;
+                ctx.fillRect(cx + 1, cy + 1, cellSize - 2, cellSize - 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+                ctx.fillRect(cx + 1, cy + 1, cellSize - 2, 4);
+                ctx.fillRect(cx + 1, cy + 1, 4, cellSize - 2);
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                ctx.fillRect(cx + 1, cy + cellSize - 5, cellSize - 2, 4);
+                ctx.fillRect(cx + cellSize - 5, cy + 1, 4, cellSize - 2);
+              }
+            }
+          }
+        }
+      }
+
+      // Side Stats & Info Panel
+      const sideX = boardX + boardW + 45;
+      let sideY = boardY + 10;
+
+      ctx.fillStyle = C64_WHITE;
+      ctx.font = 'bold 24px "Courier New", monospace';
+      ctx.fillText('SCORE', sideX, sideY);
+      sideY += 30;
+      ctx.fillStyle = C64_YELLOW;
+      ctx.font = 'bold 32px "Courier New", monospace';
+      ctx.fillText(String(score).padStart(6, '0'), sideX, sideY);
+      sideY += 46;
+
+      ctx.fillStyle = C64_WHITE;
+      ctx.font = 'bold 24px "Courier New", monospace';
+      ctx.fillText('LINES', sideX, sideY);
+      sideY += 30;
+      ctx.fillStyle = C64_CYAN;
+      ctx.font = 'bold 32px "Courier New", monospace';
+      ctx.fillText(String(lines).padStart(4, '0'), sideX, sideY);
+      sideY += 46;
+
+      ctx.fillStyle = C64_WHITE;
+      ctx.font = 'bold 24px "Courier New", monospace';
+      ctx.fillText('LEVEL', sideX, sideY);
+      sideY += 30;
+      ctx.fillStyle = C64_GREEN;
+      ctx.font = 'bold 32px "Courier New", monospace';
+      ctx.fillText(String(level).padStart(2, '0'), sideX, sideY);
+      sideY += 50;
+
+      // Next Piece Box
+      ctx.fillStyle = C64_WHITE;
+      ctx.font = 'bold 22px "Courier New", monospace';
+      ctx.fillText('NEXT PIECE:', sideX, sideY);
+      sideY += 28;
+
+      const previewBoxW = 160;
+      const previewBoxH = 110;
+      ctx.fillStyle = '#080816';
+      ctx.fillRect(sideX, sideY, previewBoxW, previewBoxH);
+      ctx.strokeStyle = '#6c63ff';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(sideX, sideY, previewBoxW, previewBoxH);
+
+      if (nextPieceType) {
+        const nextDef = TETROMINOES[nextPieceType];
+        const nShape = nextDef.shape;
+        const pCell = 22;
+        const offX = sideX + (previewBoxW - nShape[0].length * pCell) / 2;
+        const offY = sideY + (previewBoxH - nShape.length * pCell) / 2;
+
+        for (let r = 0; r < nShape.length; r++) {
+          for (let c = 0; c < nShape[r].length; c++) {
+            if (nShape[r][c]) {
+              ctx.fillStyle = nextDef.color;
+              ctx.fillRect(offX + c * pCell + 1, offY + r * pCell + 1, pCell - 2, pCell - 2);
+            }
+          }
+        }
+      }
+      sideY += previewBoxH + 40;
+
+      // Controls Legend
+      ctx.fillStyle = C64_YELLOW;
+      ctx.font = 'bold 20px "Courier New", monospace';
+      ctx.fillText('CONTROLS:', sideX, sideY);
+      sideY += 26;
+      ctx.fillStyle = C64_CYAN;
+      ctx.font = '18px "Courier New", monospace';
+      ctx.fillText('⌨️ [◄/►] MOVE  [▲/W] ROTATE', sideX, sideY);
+      sideY += 24;
+      ctx.fillText('⌨️ [▼/S] DROP  [SPACE] HARD DROP', sideX, sideY);
+      sideY += 24;
+      ctx.fillText('🕹️ JOYSTICK: DRAG STICK', sideX, sideY);
+
+      // Game Over Banner
+      if (gameOver) {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+        ctx.fillRect(boardX, boardY + boardH / 2 - 70, boardW, 140);
+        ctx.strokeStyle = '#ff4444';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(boardX, boardY + boardH / 2 - 70, boardW, 140);
+
+        ctx.fillStyle = '#ff4444';
+        ctx.font = 'bold 38px "Courier New", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('GAME OVER', boardX + boardW / 2, boardY + boardH / 2 - 35);
+
+        if (cursorRef.current) {
+          ctx.fillStyle = C64_YELLOW;
+          ctx.font = 'bold 20px "Courier New", monospace';
+          ctx.fillText('PRESS ENTER / SPACE', boardX + boardW / 2, boardY + boardH / 2 + 15);
+          ctx.fillText('TO RESTART GAME', boardX + boardW / 2, boardY + boardH / 2 + 40);
+        }
+        ctx.textAlign = 'left';
+      }
     }
 
     // Cursor
@@ -469,7 +640,7 @@ export function CRTContentRenderer({ onTextureNeedsUpdate }: { onTextureNeedsUpd
     }
 
     if (onTextureNeedsUpdate) onTextureNeedsUpdate();
-  }, [powerState, activeSection, crtSelectedIndex, onTextureNeedsUpdate]);
+  }, [powerState, activeSection, crtSelectedIndex, tetris, onTextureNeedsUpdate]);
 
   return (
     <canvas

@@ -70,6 +70,9 @@ export function SceneCamera() {
       targetOffset.current = { x: 0.5, z: -0.2 };
     } else if (activeSection === 'contact') {
       targetOffset.current = { x: 0, z: 0.4 };
+    } else if (activeSection === 'game') {
+      targetOffset.current = { x: 0, z: -0.4 };
+      zoomRef.current = 4.2;
     }
   }, [activeSection]);
 

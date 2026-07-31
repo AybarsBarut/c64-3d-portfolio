@@ -234,26 +234,17 @@ class SoundEngine {
     osc.stop(now + 0.04);
   }
 
-  // 16-bit C64 Retro Chiptune Background Music Synthesizer
-  private musicTimer: number | null = null;
+  // 8-Bit Retro Background Music Player (David Renda - 8 Bit Menu)
+  private bgmAudio: HTMLAudioElement | null = null;
   private isMusicPlaying: boolean = false;
-  private currentNoteIdx: number = 0;
 
-  private melody: number[] = [
-    261.63, 329.63, 392.00, 523.25, 392.00, 329.63, 261.63, 329.63,
-    293.66, 349.23, 440.00, 587.33, 440.00, 349.23, 293.66, 349.23,
-    329.63, 392.00, 493.88, 659.25, 493.88, 392.00, 329.63, 392.00,
-    349.23, 440.00, 523.25, 698.46, 523.25, 440.00, 349.23, 440.00,
-    523.25, 659.25, 783.99, 1046.50, 783.99, 659.25, 523.25, 659.25,
-    587.33, 698.46, 880.00, 1174.66, 880.00, 698.46, 587.33, 698.46,
-    659.25, 783.99, 987.77, 1318.51, 987.77, 783.99, 659.25, 783.99,
-    523.25, 659.25, 783.99, 1046.50, 880.00, 698.46, 587.33, 493.88,
-  ];
-
-  private bassline: number[] = [
-    130.81, 130.81, 130.81, 130.81, 146.83, 146.83, 146.83, 146.83,
-    164.81, 164.81, 164.81, 164.81, 174.61, 174.61, 174.61, 174.61,
-  ];
+  private initBgm() {
+    if (!this.bgmAudio && typeof window !== 'undefined') {
+      this.bgmAudio = new Audio('/audio/bgm.mp3');
+      this.bgmAudio.loop = true;
+      this.bgmAudio.volume = 0.55;
+    }
+  }
 
   public toggleMusic(): boolean {
     if (this.isMusicPlaying) {
@@ -266,107 +257,21 @@ class SoundEngine {
   }
 
   public startMusic() {
-    this.initCtx();
-    if (!this.ctx) return;
-    if (this.isMusicPlaying) return;
-
+    this.initBgm();
+    if (!this.bgmAudio) return;
+    this.bgmAudio.play().catch((err) => console.log('Audio playback exception:', err));
     this.isMusicPlaying = true;
-    this.currentNoteIdx = 0;
-
-    const tempo = 135;
-    const stepTimeMs = (60 / tempo / 4) * 1000;
-
-    this.musicTimer = window.setInterval(() => {
-      this.playChiptuneStep();
-    }, stepTimeMs);
   }
 
   public stopMusic() {
-    if (this.musicTimer !== null) {
-      clearInterval(this.musicTimer);
-      this.musicTimer = null;
+    if (this.bgmAudio) {
+      this.bgmAudio.pause();
     }
     this.isMusicPlaying = false;
   }
 
   public getIsMusicPlaying(): boolean {
     return this.isMusicPlaying;
-  }
-
-  private playChiptuneStep() {
-    if (!this.ctx || !this.isMusicPlaying) return;
-    const now = this.ctx.currentTime;
-
-    // 1. Arpeggio / Lead Chiptune Synth
-    const freq = this.melody[this.currentNoteIdx % this.melody.length];
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    const filter = this.ctx.createBiquadFilter();
-
-    osc.type = 'square';
-    osc.frequency.setValueAtTime(freq, now);
-
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(3200, now);
-    filter.frequency.exponentialRampToValueAtTime(800, now + 0.09);
-
-    gain.gain.setValueAtTime(0.08, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
-
-    osc.connect(filter);
-    filter.connect(gain);
-    gain.connect(this.ctx.destination);
-
-    osc.start(now);
-    osc.stop(now + 0.09);
-
-    // 2. Retro Bass Synth
-    if (this.currentNoteIdx % 2 === 0) {
-      const bassFreq = this.bassline[Math.floor(this.currentNoteIdx / 2) % this.bassline.length];
-      const bassOsc = this.ctx.createOscillator();
-      const bassGain = this.ctx.createGain();
-
-      bassOsc.type = 'triangle';
-      bassOsc.frequency.setValueAtTime(bassFreq, now);
-
-      bassGain.gain.setValueAtTime(0.14, now);
-      bassGain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
-
-      bassOsc.connect(bassGain);
-      bassGain.connect(this.ctx.destination);
-
-      bassOsc.start(now);
-      bassOsc.stop(now + 0.18);
-    }
-
-    // 3. 8-Bit Percussion Hi-hat
-    if (this.currentNoteIdx % 4 === 2) {
-      const bufferSize = Math.floor(this.ctx.sampleRate * 0.02);
-      const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        data[i] = Math.random() * 2 - 1;
-      }
-
-      const noise = this.ctx.createBufferSource();
-      noise.buffer = buffer;
-
-      const noiseFilter = this.ctx.createBiquadFilter();
-      noiseFilter.type = 'highpass';
-      noiseFilter.frequency.value = 5000;
-
-      const noiseGain = this.ctx.createGain();
-      noiseGain.gain.setValueAtTime(0.04, now);
-      noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.02);
-
-      noise.connect(noiseFilter);
-      noiseFilter.connect(noiseGain);
-      noiseGain.connect(this.ctx.destination);
-
-      noise.start(now);
-    }
-
-    this.currentNoteIdx++;
   }
 
   // Commodore 64 startup beep
